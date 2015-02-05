@@ -20,29 +20,20 @@ var drawMaze = function(){
         for(var y=0;y<MAZE_HEIGHT*2+1;y++){
             switch (line[y]) {
                 case '+':
-                {
                     img = a_i_wall_wh_x;
                     break;
-                }
                 case '-':
-                {
                     img = a_i_wall_wh_v;
                     break;
-                }
                 case '|':
-                {
                     img = a_i_wall_wh_h;
                     break;
-                }
                 default :
-                {
                     img = undefined;
                     break;
-                }
             }
-            if(img) {
+            if(img)
                 ctx.drawImage(img, x * WALL_SIZE, y * WALL_SIZE, WALL_SIZE, WALL_SIZE);
-            }
         }
     }
 }
