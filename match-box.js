@@ -18,23 +18,19 @@ var drawMaze = function(){
     for(var x=0;x<MAZE_WIDTH*2+1;x++){
         line = maze[x];
         for(var y=0;y<MAZE_HEIGHT*2+1;y++){
-            console.log("x:"+x+" y:"+y);
             switch (line[y]) {
                 case '+':
                 {
-                    console.log("+");
                     img = a_i_wall_wh_x;
                     break;
                 }
                 case '-':
                 {
-                    console.log("-");
                     img = a_i_wall_wh_v;
                     break;
                 }
                 case '|':
                 {
-                    console.log("|");
                     img = a_i_wall_wh_h;
                     break;
                 }
@@ -55,7 +51,6 @@ window.onload = function() {
     animate(step);
     maze = display(maze(MAZE_WIDTH, MAZE_HEIGHT));
     renderBackground();
-    console.log(maze);
     drawMaze();
 };
 
