@@ -45,7 +45,7 @@ var drawMaze = function(){
                 }
             }
             if(img) {
-                ctx.drawImage(img, x * 15, y * 15, 15, 15);
+                ctx.drawImage(img, x * WALL_SIZE, y * WALL_SIZE, WALL_SIZE, WALL_SIZE);
             }
         }
     }
