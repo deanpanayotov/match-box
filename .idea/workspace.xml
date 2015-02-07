@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="51850534-226a-4f50-ac60-bba52fbfb005" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/constants.js" afterPath="$PROJECT_DIR$/constants.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/match-box.js" afterPath="$PROJECT_DIR$/match-box.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/player.js" afterPath="$PROJECT_DIR$/player.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="match-box.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -51,8 +48,8 @@
       <file leaf-file-name="player.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/player.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.10911425" vertical-offset="0" max-vertical-offset="1445">
-              <caret line="7" column="16" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
+            <state vertical-scroll-proportion="0.1309371" vertical-offset="0" max-vertical-offset="1394">
+              <caret line="8" column="34" selection-start-line="8" selection-start-column="34" selection-end-line="8" selection-end-column="34" />
               <folding>
                 <element signature="e#0#58#0" expanded="false" />
               </folding>
@@ -387,8 +384,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/player.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.10911425" vertical-offset="0" max-vertical-offset="1445">
-          <caret line="7" column="16" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
+        <state vertical-scroll-proportion="0.1309371" vertical-offset="0" max-vertical-offset="1394">
+          <caret line="8" column="34" selection-start-line="8" selection-start-column="34" selection-end-line="8" selection-end-column="34" />
           <folding>
             <element signature="e#0#58#0" expanded="false" />
           </folding>

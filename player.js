@@ -5,9 +5,9 @@
 var Player = function(){
 
     this.const = {
-        SPEED: 1,
-        STEPS: Math.floor(STEP),
-        RADIUS: STEP/2,
+        SPEED: 2,
+        STEPS: Math.floor(STEP/2),
+        RADIUS: Math.floor(STEP/2),
         PI2: Math.PI*2,
 
         KEY_LEFT:37,
@@ -50,24 +50,21 @@ var Player = function(){
         if (maze[nx][ny] === ' ') {
             this.xspeed = nx - this.x;
             this.x = nx;
-            this.xoffset = this.const.STEPS * this.xspeed * -1;
+            this.xoffset = Math.floor(STEP) * this.xspeed * -1;
             this.yspeed = ny - this.y;
             this.y = ny;
-            this.yoffset = this.const.STEPS * this.yspeed * -1;
+            this.yoffset = Math.floor(STEP) * this.yspeed * -1;
             this.steps = this.const.STEPS;
             this.move();
+            console.log(this.xoffset+" "+this.yoffset+" "+this.steps);
         }
     }
 
     this.move = function() {
-        console.log(this.xoffset+" "+this.yoffset+" "+this.xspeed+" "+this.yspeed);
-        if (this.steps > 1) {
+        //console.log(this.xoffset+" "+this.yoffset+" "+this.xspeed+" "+this.yspeed);
+        if (this.steps > 0) {
             this.xoffset += this.xspeed * this.const.SPEED;
             this.yoffset += this.yspeed * this.const.SPEED;
-            this.steps --;
-        } else if (this.steps == 1){
-            this.xoffset = 0;
-            this.yoffset = 0;
             this.steps --;
         }
     }
