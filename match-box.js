@@ -10,6 +10,7 @@ var animate = window.requestAnimationFrame ||
     window.mozRequestAnimationFrame ||
     function(callback) { window.setTimeout(callback, 1000/60) };
 
+var player = new Player();
 var maze;
 
 var drawMaze = function(){
@@ -33,7 +34,7 @@ var drawMaze = function(){
                     break;
             }
             if(img)
-                ctx.drawImage(img, x * WALL_SIZE, y * WALL_SIZE, WALL_SIZE, WALL_SIZE);
+                ctx.drawImage(img, x * STEP, y * STEP, STEP, STEP);
         }
     }
 }
@@ -41,8 +42,6 @@ var drawMaze = function(){
 window.onload = function() {
     animate(step);
     maze = display(maze(MAZE_WIDTH, MAZE_HEIGHT));
-    renderBackground();
-    drawMaze();
 };
 
 var step = function() {
@@ -52,11 +51,13 @@ var step = function() {
 };
 
 var update = function() {
-
+    player.update();
 };
 
 var render = function() {
-    //renderBackground();
+    renderBackground();
+    drawMaze();
+    player.render(ctx);
 };
 
 var renderBackground = function(){
