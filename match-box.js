@@ -54,16 +54,6 @@ function renderBackground() {
     ctx.fillRect(0, 0, WIDTH, HEIGHT);
 }
 
-var keysDown = {};
-
-window.addEventListener("keydown", function (event) {
-    keysDown[event.keyCode] = true;
-});
-
-window.addEventListener("keyup", function (event) {
-    delete keysDown[event.keyCode];
-});
-
 function generateMaze(x, y) {
     var n = x * y - 1;
     var j;

@@ -44,7 +44,7 @@ var Player = function(){
         } else {
             this.move();
         }
-    }
+    };
 
     this.moveTo = function(nx, ny) {
         var midx = (this.x + nx) / 2;
@@ -60,7 +60,7 @@ var Player = function(){
             this.steps = this.const.STEPS;
             this.move();
         }
-    }
+    };
 
     this.move = function() {
         if (this.steps > 0) {
@@ -68,7 +68,7 @@ var Player = function(){
             this.yoffset += this.yspeed * this.const.SPEED;
             this.steps--;
         }
-    }
+    };
 
     this.render = function(ctx){
         ctx.fillStyle = "#DD77EE";
@@ -77,4 +77,4 @@ var Player = function(){
         ctx.fill();
     }
 
-}
+};
