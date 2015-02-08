@@ -138,5 +138,24 @@ function display(m) {
                     line[k]= ' ';
         text[j] = line;
     }
+
+    var d = MAZE_WIDTH * MAZE_HEIGHT / 20;
+    var x, y;
+    while(d > 0){
+        x = (d%2==0 ? oddRange(MAZE_WIDTH) : evenRange(MAZE_WIDTH));
+        y = (d%2==0 ? evenRange(MAZE_HEIGHT) : oddRange(MAZE_HEIGHT));
+        if(text[x][y]!=' '){
+            text[x][y] = ' ';
+            d--;
+        };
+    }
     return text;
+}
+
+var oddRange = function(num){
+    return Math.floor(Math.random() * num) * 2 + 1;
+}
+
+var evenRange = function(num){
+    return Math.floor(Math.random() * (num - 1)) * 2 + 2;
 }
