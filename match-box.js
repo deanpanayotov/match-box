@@ -9,7 +9,7 @@ var maze;
 var animate = window.requestAnimationFrame ||
     window.webkitRequestAnimationFrame ||
     window.mozRequestAnimationFrame ||
-    function(callback) { window.setTimeout(callback, 1000 / 60) };
+    function(callback) { window.setTimeout(callback, 1000 / FRAMES_PER_SECOND) };
 
 function drawMaze(){
     var img;
