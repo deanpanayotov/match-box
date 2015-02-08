@@ -7,8 +7,8 @@ var Player = function(){
     this.const = {
         SPEED: 2,
         STEPS: Math.floor(STEP),
-        RADIUS: Math.floor(STEP/2),
-        PI2: Math.PI*2,
+        RADIUS: Math.floor(STEP / 2),
+        PI2: Math.PI * 2,
 
         KEY_LEFT:37,
         KEY_UP:38,
@@ -16,8 +16,8 @@ var Player = function(){
         KEY_DOWN:40
     };
 
-    this.x = (1 + Math.floor(Math.random()*MAZE_WIDTH)*2);
-    this.y = (1 + Math.floor(Math.random()*MAZE_HEIGHT)*2);
+    this.x = (1 + Math.floor(Math.random() * MAZE_WIDTH) * 2);
+    this.y = (1 + Math.floor(Math.random() * MAZE_HEIGHT) * 2);
     this.xoffset = 0;
     this.yoffset = 0;
     this.steps = 0;
@@ -47,15 +47,15 @@ var Player = function(){
     }
 
     this.moveTo = function(nx, ny) {
-        var midx = (this.x+nx)/2;
-        var midy = (this.y+ny)/2;
+        var midx = (this.x + nx) / 2;
+        var midy = (this.y + ny) / 2;
         if (maze[midx][midy] === ' ') {
             this.xspeed = midx - this.x;
             this.yspeed = midy - this.y;
             this.x = nx;
             this.y = ny;
-            this.xoffset = Math.floor(STEP*2) * this.xspeed * -1;
-            this.yoffset = Math.floor(STEP*2) * this.yspeed * -1;
+            this.xoffset = Math.floor(STEP * 2) * this.xspeed * -1;
+            this.yoffset = Math.floor(STEP * 2) * this.yspeed * -1;
 
             this.steps = this.const.STEPS;
             this.move();
@@ -66,14 +66,14 @@ var Player = function(){
         if (this.steps > 0) {
             this.xoffset += this.xspeed * this.const.SPEED;
             this.yoffset += this.yspeed * this.const.SPEED;
-            this.steps --;
+            this.steps--;
         }
     }
 
     this.render = function(ctx){
         ctx.fillStyle = "#DD77EE";
         ctx.beginPath();
-        ctx.arc(this.x * STEP + STEP/2 + this.xoffset, this.y * STEP + STEP/2 + this.yoffset, this.const.RADIUS, 0, this.const.PI2);
+        ctx.arc(this.x * STEP + STEP / 2 + this.xoffset, this.y * STEP + STEP / 2 + this.yoffset, this.const.RADIUS, 0, this.const.PI2);
         ctx.fill();
     }
 
