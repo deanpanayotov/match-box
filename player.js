@@ -6,7 +6,7 @@ var Player = function(){
 
     this.const = {
         SPEED: 2,
-        STEPS: Math.floor(STEP/2),
+        STEPS: Math.floor(STEP),
         RADIUS: Math.floor(STEP/2),
         PI2: Math.PI*2,
 
@@ -28,16 +28,16 @@ var Player = function(){
                 var value = Number(key);
                 switch (value) {
                     case this.const.KEY_LEFT:
-                        this.moveTo(this.x - 1, this.y);
+                        this.moveTo(this.x - 2, this.y);
                         break;
                     case this.const.KEY_UP:
-                        this.moveTo(this.x, this.y - 1);
+                        this.moveTo(this.x, this.y - 2);
                         break;
                     case this.const.KEY_RIGHT:
-                        this.moveTo(this.x + 1, this.y);
+                        this.moveTo(this.x + 2, this.y);
                         break;
                     case this.const.KEY_DOWN:
-                        this.moveTo(this.x, this.y + 1);
+                        this.moveTo(this.x, this.y + 2);
                         break;
                 }
             }
@@ -47,13 +47,15 @@ var Player = function(){
     }
 
     this.moveTo = function(nx, ny) {
-        if (maze[nx][ny] === ' ') {
-            this.xspeed = nx - this.x;
-            this.yspeed = ny - this.y;
+        var midx = (this.x+nx)/2;
+        var midy = (this.y+ny)/2;
+        if (maze[midx][midy] === ' ') {
+            this.xspeed = midx - this.x;
+            this.yspeed = midy - this.y;
             this.x = nx;
             this.y = ny;
-            this.xoffset = Math.floor(STEP) * this.xspeed * -1;
-            this.yoffset = Math.floor(STEP) * this.yspeed * -1;
+            this.xoffset = Math.floor(STEP*2) * this.xspeed * -1;
+            this.yoffset = Math.floor(STEP*2) * this.yspeed * -1;
 
             this.steps = this.const.STEPS;
             this.move();
