@@ -49,7 +49,7 @@ var Player = function(){
     this.moveTo = function(nx, ny) {
         var midx = (this.x + nx) / 2;
         var midy = (this.y + ny) / 2;
-        if (maze[midx][midy] === ' ') {
+        if (maze.cells[midx][midy] === undefined) {
             this.xspeed = midx - this.x;
             this.yspeed = midy - this.y;
             this.x = nx;
