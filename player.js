@@ -52,10 +52,10 @@ var Player = function(){
         if (maze.cells[midx][midy] === undefined) {
             this.xspeed = midx - this.x;
             this.yspeed = midy - this.y;
-            this.x = nx;
-            this.y = ny;
             this.xoffset = Math.floor(STEP * 2) * this.xspeed * -1;
             this.yoffset = Math.floor(STEP * 2) * this.yspeed * -1;
+            this.x = nx;
+            this.y = ny;
 
             this.steps = this.const.STEPS;
             this.move();

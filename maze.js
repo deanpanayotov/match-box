@@ -4,30 +4,39 @@
 
 var Maze = function(){
 
-    this.generateMaze = function(x, y) {
-        var n = x * y - 1;
-        var j;
-        if (n < 0) { alert("illegal generateMaze dimensions"); return; }
-        var horizontal =[]; for (j = 0; j < x + 1; j++) horizontal[j] = [];
-        var vertical =[]; for (j = 0; j < y + 1; j++) vertical[j] = [];
-        var here = [Math.floor(Math.random() * x), Math.floor(Math.random() * y)];
+    this.generateMaze = function(width, height) {
+        var totalCells = width * height - 1;
+        var x, y;
+        var horizontal =[]; for (x = 0; x < width + 1; x++) horizontal[x] = [];
+        var vertical =[]; for (y = 0; y < height + 1; y++) vertical[y] = [];
+        var here = [Math.floor(Math.random() * width), Math.floor(Math.random() * height)];
         var path = [here];
         var unvisited = [];
         var next;
-        for (j = 0; j < x + 2; j++) {
-            unvisited[j] = [];
-            for (var k = 0; k < y + 1; k++)
-                unvisited[j].push(j > 0 && j < x + 1 && k > 0 && (j != here[0] + 1 || k != here[1] + 1));
+        for (x = 0; x < width + 2; x++) {
+            unvisited[x] = [];
+            for (y = 0; y < height + 1; y++)
+                unvisited[x].push(
+                        x > 0 &&
+                        x < width + 1 &&
+                        y > 0 &&
+                        (
+                            x != here[0] + 1 ||
+                            y != here[1] + 1
+                        )
+                );
         }
-        while (0 < n) {
-            var potential = [[here[0] + 1, here[1]], [here[0], here[1] + 1],
-                [here[0] - 1, here[1]], [here[0], here[1] - 1]];
+        while (0 < totalCells) {
+            var potential = [[here[0] + 1, here[1]],
+                             [here[0], here[1] + 1],
+                             [here[0] - 1, here[1]],
+                            [here[0], here[1] - 1]];
             var neighbors = [];
-            for (j = 0; j < 4; j++)
-                if (unvisited[potential[j][0] + 1][potential[j][1] + 1])
-                    neighbors.push(potential[j]);
+            for (x = 0; x < 4; x++)
+                if (unvisited[potential[x][0] + 1][potential[x][1] + 1])
+                    neighbors.push(potential[x]);
             if (neighbors.length) {
-                n = n-1;
+                totalCells--;
                 next = neighbors[Math.floor(Math.random() * neighbors.length)];
                 unvisited[next[0] + 1][next[1] + 1] = false;
                 if (next[0] == here[0])
@@ -38,37 +47,37 @@ var Maze = function(){
             } else
                 here = path.pop();
         }
-        return {x: x, y: y, horiz: horizontal, verti: vertical};
+        return {width: width, height: height, horizontal: horizontal, vertical: vertical};
     }
 
     this.parseMaze = function(m) {
-        var mazeArray = [];
-        var k;
-        for (var j = 0; j < m.x * 2 + 1; j++) {
+        var cells = [];
+        var x, y;
+        for (x = 0; x < m.width * 2 + 1; x++) {
             var line= [];
-            if (0 == j % 2)
-                for (k = 0; k < m.y * 2 + 1; k++)
-                    if (0 == k % 2)
-                        line[k] = new Cell(j, k, Cell.WALL_JOINT);
+            if (0 == x % 2)
+                for (y = 0; y < m.height * 2 + 1; y++)
+                    if (0 == y % 2)
+                        line[y] = new Cell(x, y, Cell.WALL_JOINT);
                     else
-                    if (j > 0 && m.verti[j / 2 - 1][Math.floor(k / 2)])
-                        line[k] = undefined;
+                    if (x > 0 && m.vertical[x / 2 - 1][Math.floor(y / 2)])
+                        line[y] = undefined;
                     else
-                        line[k] = new Cell(j, k, Cell.VERTICAL_WALL);
+                        line[y] = new Cell(x, y, Cell.VERTICAL_WALL);
             else
-                for (k = 0; k < m.y * 2 + 1; k++)
-                    if (0 == k % 2)
-                        if (k > 0 && m.horiz[(j - 1) / 2][k / 2 - 1])
-                            line[k] = undefined;
+                for (y = 0; y < m.height * 2 + 1; y++)
+                    if (0 == y % 2)
+                        if (y > 0 && m.horizontal[(x - 1) / 2][y / 2 - 1])
+                            line[y] = undefined;
                         else
-                            line[k] = new Cell(j, k, Cell.HORIZONTAL_WALL);
+                            line[y] = new Cell(x, y, Cell.HORIZONTAL_WALL);
                     else
-                        line[k] = undefined;
-            mazeArray[j] = line;
+                        line[y] = undefined;
+            cells[x] = line;
         }
 
-        this.wreckWalls(mazeArray);
-        return mazeArray;
+        this.wreckWalls(cells);
+        return cells;
     }
 
     this.wreckWalls = function(m){

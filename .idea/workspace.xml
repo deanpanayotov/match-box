@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="51850534-226a-4f50-ac60-bba52fbfb005" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/match-box.html" afterPath="$PROJECT_DIR$/match-box.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/match-box.js" afterPath="$PROJECT_DIR$/match-box.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/maze.js" afterPath="$PROJECT_DIR$/maze.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/player.js" afterPath="$PROJECT_DIR$/player.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="match-box.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,21 +27,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="match-box.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="match-box.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/match-box.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7381258" vertical-offset="3" max-vertical-offset="850">
-              <caret line="34" column="1" selection-start-line="34" selection-start-column="1" selection-end-line="34" selection-end-column="1" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="3" max-vertical-offset="850">
+              <caret line="15" column="2" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="2" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="maze.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="maze.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/maze.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1768">
-              <caret line="90" column="43" selection-start-line="90" selection-start-column="37" selection-end-line="90" selection-end-column="43" />
+            <state vertical-scroll-proportion="0.436457" vertical-offset="0" max-vertical-offset="1921">
+              <caret line="20" column="40" selection-start-line="20" selection-start-column="40" selection-end-line="20" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -84,8 +84,8 @@
       <file leaf-file-name="player.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/player.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="536" max-vertical-offset="1445">
-              <caret line="52" column="40" selection-start-line="52" selection-start-column="40" selection-end-line="52" selection-end-column="40" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1445">
+              <caret line="8" column="32" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
               <folding>
                 <element signature="e#0#58#0" expanded="false" />
               </folding>
@@ -151,9 +151,9 @@
         <option value="$PROJECT_DIR$/constants.js" />
         <option value="$PROJECT_DIR$/cell.js" />
         <option value="$PROJECT_DIR$/match-box.html" />
-        <option value="$PROJECT_DIR$/maze.js" />
-        <option value="$PROJECT_DIR$/player.js" />
         <option value="$PROJECT_DIR$/match-box.js" />
+        <option value="$PROJECT_DIR$/player.js" />
+        <option value="$PROJECT_DIR$/maze.js" />
       </list>
     </option>
   </component>
@@ -434,10 +434,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/match-box.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3" max-vertical-offset="850">
+          <caret line="15" column="2" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/player.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="536" max-vertical-offset="1445">
-          <caret line="52" column="40" selection-start-line="52" selection-start-column="40" selection-end-line="52" selection-end-column="40" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1445">
+          <caret line="8" column="32" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
           <folding>
             <element signature="e#0#58#0" expanded="false" />
           </folding>
@@ -446,16 +454,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/maze.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1768">
-          <caret line="90" column="43" selection-start-line="90" selection-start-column="37" selection-end-line="90" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/match-box.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7381258" vertical-offset="3" max-vertical-offset="850">
-          <caret line="34" column="1" selection-start-line="34" selection-start-column="1" selection-end-line="34" selection-end-column="1" />
+        <state vertical-scroll-proportion="0.436457" vertical-offset="0" max-vertical-offset="1921">
+          <caret line="20" column="40" selection-start-line="20" selection-start-column="40" selection-end-line="20" selection-end-column="40" />
           <folding />
         </state>
       </provider>
