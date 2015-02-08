@@ -24,20 +24,20 @@ var Player = function(){
 
     this.update = function(){
         if(this.steps == 0) {
-            for (var key in keysDown) {
+            f: for (var key in keysDown) {
                 var value = Number(key);
                 switch (value) {
                     case this.const.KEY_LEFT:
-                        this.moveTo(this.x - 2, this.y);
+                        if(this.moveTo(this.x - 2, this.y)) break f;
                         break;
                     case this.const.KEY_UP:
-                        this.moveTo(this.x, this.y - 2);
+                        if(this.moveTo(this.x, this.y - 2)) break f;
                         break;
                     case this.const.KEY_RIGHT:
-                        this.moveTo(this.x + 2, this.y);
+                        if(this.moveTo(this.x + 2, this.y)) break f;
                         break;
                     case this.const.KEY_DOWN:
-                        this.moveTo(this.x, this.y + 2);
+                        if(this.moveTo(this.x, this.y + 2)) break f;
                         break;
                 }
             }
@@ -59,7 +59,9 @@ var Player = function(){
 
             this.steps = this.const.STEPS;
             this.move();
+            return true;
         }
+        return false;
     };
 
     this.move = function() {

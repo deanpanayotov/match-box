@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="51850534-226a-4f50-ac60-bba52fbfb005" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/constants.js" afterPath="$PROJECT_DIR$/constants.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/match-box.js" afterPath="$PROJECT_DIR$/match-box.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/player.js" afterPath="$PROJECT_DIR$/player.js" />
     </list>
     <ignored path="match-box.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,11 +25,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="match-box.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="match-box.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/match-box.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.71630293" vertical-offset="1584" max-vertical-offset="2516">
-              <caret line="126" column="36" selection-start-line="126" selection-start-column="36" selection-end-line="126" selection-end-column="36" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="819" max-vertical-offset="2516">
+              <caret line="94" column="23" selection-start-line="94" selection-start-column="23" selection-end-line="94" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -58,11 +57,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="player.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="player.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/player.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1411">
-              <caret line="9" column="37" selection-start-line="9" selection-start-column="37" selection-end-line="9" selection-end-column="37" />
+            <state vertical-scroll-proportion="0.3889602" vertical-offset="666" max-vertical-offset="1445">
+              <caret line="59" column="42" selection-start-line="59" selection-start-column="42" selection-end-line="59" selection-end-column="42" />
               <folding>
                 <element signature="e#0#58#0" expanded="false" />
               </folding>
@@ -124,11 +123,11 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/asset-loader.js" />
-        <option value="$PROJECT_DIR$/player.js" />
         <option value="$PROJECT_DIR$/keys.js" />
         <option value="$PROJECT_DIR$/match-box.html" />
         <option value="$PROJECT_DIR$/constants.js" />
         <option value="$PROJECT_DIR$/match-box.js" />
+        <option value="$PROJECT_DIR$/player.js" />
       </list>
     </option>
   </component>
@@ -373,16 +372,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/player.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1411">
-          <caret line="9" column="37" selection-start-line="9" selection-start-column="37" selection-end-line="9" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#58#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/match-box.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.1923075" vertical-offset="0" max-vertical-offset="357">
@@ -411,9 +400,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/match-box.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.71630293" vertical-offset="1584" max-vertical-offset="2516">
-          <caret line="126" column="36" selection-start-line="126" selection-start-column="36" selection-end-line="126" selection-end-column="36" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="819" max-vertical-offset="2516">
+          <caret line="94" column="23" selection-start-line="94" selection-start-column="23" selection-end-line="94" selection-end-column="23" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/player.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3889602" vertical-offset="666" max-vertical-offset="1445">
+          <caret line="59" column="42" selection-start-line="59" selection-start-column="42" selection-end-line="59" selection-end-column="42" />
+          <folding>
+            <element signature="e#0#58#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
