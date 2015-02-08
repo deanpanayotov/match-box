@@ -117,17 +117,21 @@ function parseMaze(m) {
         mazeArray[j] = line;
     }
 
-    var d = MAZE_WIDTH * MAZE_HEIGHT / 16;
+    wreckWalls(mazeArray);
+    return mazeArray;
+}
+
+function wreckWalls(m){
+    var numberWallsToWreck = MAZE_WIDTH * MAZE_HEIGHT * WRECK_PERCENTAGE;
     var x, y;
-    while(d > 0){
-        x = (d % 2 == 0 ? oddRange(MAZE_WIDTH) : evenRange(MAZE_WIDTH));
-        y = (d % 2 == 0 ? evenRange(MAZE_HEIGHT) : oddRange(MAZE_HEIGHT));
-        if (mazeArray[x][y] != ' ') {
-            mazeArray[x][y] = ' ';
-            d--;
+    while (numberWallsToWreck > 0) {
+        x = (numberWallsToWreck % 2 == 0 ? oddRange(MAZE_WIDTH) : evenRange(MAZE_WIDTH));
+        y = (numberWallsToWreck % 2 == 0 ? evenRange(MAZE_HEIGHT) : oddRange(MAZE_HEIGHT));
+        if (m[x][y] != ' ') {
+            m[x][y] = ' ';
+            numberWallsToWreck--;
         }
     }
-    return mazeArray;
 }
 
 function oddRange(num){
