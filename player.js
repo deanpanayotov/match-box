@@ -49,19 +49,18 @@ var Player = function(){
     this.moveTo = function(nx, ny) {
         if (maze[nx][ny] === ' ') {
             this.xspeed = nx - this.x;
-            this.x = nx;
-            this.xoffset = Math.floor(STEP) * this.xspeed * -1;
             this.yspeed = ny - this.y;
+            this.x = nx;
             this.y = ny;
+            this.xoffset = Math.floor(STEP) * this.xspeed * -1;
             this.yoffset = Math.floor(STEP) * this.yspeed * -1;
+
             this.steps = this.const.STEPS;
             this.move();
-            console.log(this.xoffset+" "+this.yoffset+" "+this.steps);
         }
     }
 
     this.move = function() {
-        //console.log(this.xoffset+" "+this.yoffset+" "+this.xspeed+" "+this.yspeed);
         if (this.steps > 0) {
             this.xoffset += this.xspeed * this.const.SPEED;
             this.yoffset += this.yspeed * this.const.SPEED;
