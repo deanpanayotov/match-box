@@ -139,7 +139,7 @@ function display(m) {
         text[j] = line;
     }
 
-    var d = MAZE_WIDTH * MAZE_HEIGHT / 20;
+    var d = MAZE_WIDTH * MAZE_HEIGHT / 16;
     var x, y;
     while(d > 0){
         x = (d%2==0 ? oddRange(MAZE_WIDTH) : evenRange(MAZE_WIDTH));
