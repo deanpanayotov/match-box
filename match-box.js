@@ -6,6 +6,8 @@ var ctx = canvas.getContext("2d");
 var player = new Player();
 var maze = new Maze();
 
+var delta, now, then;
+
 var animate = window.requestAnimationFrame ||
     window.webkitRequestAnimationFrame ||
     window.mozRequestAnimationFrame ||
@@ -16,6 +18,7 @@ window.onload = function() {
 };
 
 function step() {
+    setDelta();
     update();
     render();
     animate(step);
@@ -42,4 +45,10 @@ function oddRange(num){
 
 function evenRange(num) {
     return Math.floor(Math.random() * (num - 1)) * 2 + 2;
+}
+
+function setDelta(){
+    now = Date.now();
+    delta = (now - then) / 1000; // seconds since last frame
+    then = now;
 }

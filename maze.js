@@ -48,7 +48,7 @@ var Maze = function(){
                 here = path.pop();
         }
         return {width: width, height: height, horizontal: horizontal, vertical: vertical};
-    }
+    };
 
     this.parseMaze = function(m) {
         var cells = [];
@@ -78,7 +78,7 @@ var Maze = function(){
 
         this.wreckWalls(cells);
         return cells;
-    }
+    };
 
     this.wreckWalls = function(m){
         var numberWallsToWreck = MAZE_WIDTH * MAZE_HEIGHT * WRECK_PERCENTAGE;
@@ -91,7 +91,7 @@ var Maze = function(){
                 numberWallsToWreck--;
             }
         }
-    }
+    };
 
     this.render = function (ctx) {
         for (var x = 0; x < MAZE_WIDTH * 2 + 1; x++) {
@@ -101,7 +101,7 @@ var Maze = function(){
                 }
             }
         }
-    }
+    };
 
     this.cells = this.parseMaze(this.generateMaze(MAZE_WIDTH, MAZE_HEIGHT));
 
