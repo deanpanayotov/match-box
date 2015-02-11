@@ -5,8 +5,6 @@
 var Player = function(){
 
     this.const = {
-        SPEED: 2,
-        STEPS: Math.floor(STEP),
         RADIUS: Math.floor(STEP / 2),
         PI2: Math.PI * 2,
 
@@ -18,12 +16,18 @@ var Player = function(){
 
     this.x = (1 + Math.floor(Math.random() * MAZE_WIDTH) * 2);
     this.y = (1 + Math.floor(Math.random() * MAZE_HEIGHT) * 2);
-    this.xoffset = 0;
-    this.yoffset = 0;
-    this.steps = 0;
+    this.nx = this.x;
+    this.ny = this.y;
+    this.dx = this.x * STEP + STEP / 2;
+    this.dy = this.y * STEP + STEP / 2;
+    this.tx = this.dx;
+    this.ty = this.dy;
+    this.isMoving = false;
 
     this.update = function(){
-        if(this.steps == 0) {
+        if(this.isMoving) {
+            this.move();
+        }else{
             f: for (var key in keysDown) {
                 var value = Number(key);
                 switch (value) {
@@ -41,8 +45,6 @@ var Player = function(){
                         break;
                 }
             }
-        } else {
-            this.move();
         }
     };
 
@@ -52,31 +54,50 @@ var Player = function(){
         if (maze.cells[midx][midy] === undefined) {
             this.xspeed = midx - this.x;
             this.yspeed = midy - this.y;
-            this.xoffset = Math.floor(STEP * 2) * this.xspeed * -1;
-            this.yoffset = Math.floor(STEP * 2) * this.yspeed * -1;
-            this.x = nx;
-            this.y = ny;
-
-            this.steps = this.const.STEPS;
+            this.nx = nx;
+            this.ny = ny;
+            this.tx = nx * STEP + STEP / 2;
+            this.ty = ny * STEP + STEP / 2;
+            this.isMoving = true;
+            var that = this;
             this.move();
             return true;
         }
         return false;
     };
 
+    this.endMove = function(that){
+        console.log("sss");
+        that.isMoving = false;
+        that.x = this.nx;
+        that.y = this.ny;
+        that.dx = this.x * STEP + STEP / 2;
+        that.dy = this.y * STEP + STEP / 2;
+    }
+
     this.move = function() {
-        if (this.steps > 0) {
-            this.xoffset += this.xspeed * this.const.SPEED;
-            this.yoffset += this.yspeed * this.const.SPEED;
-            this.steps--;
+        this.dx += Player.HOP_SPEED * delta * this.xspeed;
+        this.dy += Player.HOP_SPEED * delta * this.yspeed;
+        if((this.xspeed != 0 && this.dx * this.xspeed >= this.tx * this.xspeed) ||
+            (this.yspeed != 0 && this.dy * this.yspeed >= this.ty * this.yspeed)){
+            console.log(this.dy+ " " +this.ty);
+            this.isMoving = false;
+            this.x = this.nx;
+            this.y = this.ny;
+            this.dx = this.tx;
+            this.dy = this.ty;
         }
     };
 
     this.render = function(ctx){
         ctx.fillStyle = "#DD77EE";
         ctx.beginPath();
-        ctx.arc(this.x * STEP + STEP / 2 + this.xoffset, this.y * STEP + STEP / 2 + this.yoffset, this.const.RADIUS, 0, this.const.PI2);
-        ctx.fill();
-    }
+        ctx.arc(this.dx, this.dy, this.const.RADIUS, 0, this.const.PI2);
+        ctx.fill()
+    };
 
 };
+
+Player.HOP = STEP * 2; // total number of pixels
+Player.HOP_INTERVAL = 300; //milliseconds
+Player.HOP_SPEED = Player.HOP * (1000 / Player.HOP_INTERVAL);
