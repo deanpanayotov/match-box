@@ -14,7 +14,7 @@ var Player = function(){
     this.ty = this.dy;
     this.isMoving = false;
 
-    this.ls = new LightSource(this.dx, this.dy, [200, 160, 100], 10);
+    this.ls = new LightSource(this.dx, this.dy, [200, 140, 90], 6);
     lsmanager.addLightSource(this.ls);
 
     this.update = function(){

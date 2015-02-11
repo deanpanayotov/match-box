@@ -4,11 +4,18 @@ canvas.height = HEIGHT;
 var ctx = canvas.getContext("2d");
 
 var lsmanager = new LightSourceManager();
-lsmanager.addLightSource(new LightSource(10 * STEP,10 * STEP, [ 80, 70, 60], 3));
+
+lsmanager.addLightSource(new LightSource(
+    1 + Math.floor(Math.random() * MAZE_WIDTH) * 2 * STEP + STEP / 2,
+    1 + Math.floor(Math.random() * MAZE_HEIGHT) * 2 * STEP + STEP / 2,
+    [ 100, 70, 40], 5));
+lsmanager.addLightSource(new LightSource(
+    1 + Math.floor(Math.random() * MAZE_WIDTH) * 2 * STEP + STEP / 2,
+    1 + Math.floor(Math.random() * MAZE_HEIGHT) * 2 * STEP + STEP / 2,
+    [ 120, 80, 50], 5));
 
 var player = new Player();
 var maze = new Maze();
-
 
 var delta, now, then;
 
@@ -43,9 +50,8 @@ function render(){
     renderBackground(ctx);
     for (var i = 0; i < 3; i++) {
         ctx.save();
-        ctx.globalAlpha = 0.2 + 0.2 * i;
         ctx.beginPath();
-        ctx.globalAlpha = 0.1 + 0.1 * i;
+        ctx.globalAlpha = 0.4 + 0.2 * i;
         lsmanager.renderLayer(ctx, i);
         ctx.closePath();
         ctx.clip();
