@@ -9,16 +9,14 @@ var LightSourceManager = function () {
     var that = this;
 
     this.update = function () {
-        //console.log(that.lightSources.length);
         for (var i = 0; i < that.lightSources.length; i++) {
             if (that.lightSources[i]) {
-                //console.log("a");
                 that.lightSources[i].update();
             }
         }
     }
 
-    setInterval(this.update, 100);
+    setInterval(this.update, 200);
 
 
     this.addLightSource = function (ls) {
@@ -43,12 +41,11 @@ var LightSource = function (x, y, r, rflicker) {
     this.x = x;
     this.y = y;
     this.r = r;
-    this.fr = r;
+    this.fr = r.slice;
     this.rflicker = rflicker;
     var that = this;
 
     this.update = function () {
-        console.log("update "+that.r.size);
         var flicker = Math.random() * that.rflicker * 2 - that.rflicker;
         for (var i = 0; i < 3; i++) {
             that.fr[i] = that.r[i] + ( that.r[i] / 100 ) * flicker;
