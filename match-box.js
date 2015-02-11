@@ -4,6 +4,7 @@ canvas.height = HEIGHT;
 var ctx = canvas.getContext("2d");
 
 var lsmanager = new LightSourceManager();
+lsmanager.addLightSource(new LightSource(10 * STEP,10 * STEP, [ 80, 70, 60], 3));
 
 var player = new Player();
 var maze = new Maze();

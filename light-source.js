@@ -6,17 +6,16 @@ var LightSourceManager = function () {
 
     this.lightSources = [];
     this.idCounter = 0;
-    var that = this;
 
     this.update = function () {
-        for (var i = 0; i < that.lightSources.length; i++) {
-            if (that.lightSources[i]) {
-                that.lightSources[i].update();
+        for (var i = 0; i < this.lightSources.length; i++) {
+            if (this.lightSources[i]) {
+                this.lightSources[i].update();
             }
         }
     }
 
-    setInterval(this.update, 200);
+    setInterval((function(self) { return function() { self.update(); } })(this), 200);
 
 
     this.addLightSource = function (ls) {
@@ -43,16 +42,16 @@ var LightSource = function (x, y, r, rflicker) {
     this.r = r;
     this.fr = r.slice;
     this.rflicker = rflicker;
-    var that = this;
 
     this.update = function () {
-        var flicker = Math.random() * that.rflicker * 2 - that.rflicker;
+        var flicker = Math.random() * this.rflicker * 2 - this.rflicker;
         for (var i = 0; i < 3; i++) {
-            that.fr[i] = that.r[i] + ( that.r[i] / 100 ) * flicker;
+            this.fr[i] = this.r[i] + ( this.r[i] / 100 ) * flicker;
         }
     };
 
     this.render = function (ctx, i) {
+        if(i==0){console.log("x:"+this.x+" r:"+this.fr[i]);}
         ctx.arc(this.x, this.y, this.fr[i], 0, Math.PI * 2);
     }
 };
