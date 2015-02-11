@@ -40,7 +40,7 @@ var LightSource = function (x, y, r, rflicker) {
     this.x = x;
     this.y = y;
     this.r = r;
-    this.fr = r.slice;
+    this.fr = this.r.slice();
     this.rflicker = rflicker;
 
     this.update = function () {
@@ -51,7 +51,8 @@ var LightSource = function (x, y, r, rflicker) {
     };
 
     this.render = function (ctx, i) {
-        if(i==0){console.log("x:"+this.x+" r:"+this.fr[i]);}
+        console.log(this);
+        ctx.moveTo(this.x, this.y);
         ctx.arc(this.x, this.y, this.fr[i], 0, Math.PI * 2);
     }
 };
