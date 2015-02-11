@@ -3,8 +3,11 @@ canvas.width = WIDTH;
 canvas.height = HEIGHT;
 var ctx = canvas.getContext("2d");
 
+var lsmanager = new LightSourceManager();
+
 var player = new Player();
 var maze = new Maze();
+
 
 var delta, now, then;
 
@@ -35,8 +38,19 @@ function update() {
     player.update();
 }
 
-function render() {
-    ctx.drawImage(cachedMaze, 0, 0);
+function render(){
+    renderBackground(ctx);
+    for (var i = 0; i < 3; i++) {
+        ctx.save();
+        ctx.globalAlpha = 0.2 + 0.2 * i;
+        ctx.beginPath();
+        ctx.globalAlpha = 0.1 + 0.1 * i;
+        lsmanager.renderLayer(ctx, i);
+        ctx.closePath();
+        ctx.clip();
+        ctx.drawImage(cachedMaze, 0, 0);
+        ctx.restore();
+    }
     player.render(ctx);
 }
 

@@ -14,6 +14,9 @@ var Player = function(){
     this.ty = this.dy;
     this.isMoving = false;
 
+    this.ls = new LightSource(this.dx, this.dy, [200, 160, 100], 10);
+    lsmanager.addLightSource(this.ls);
+
     this.update = function(){
         if(this.isMoving) {
             this.move();
@@ -61,11 +64,15 @@ var Player = function(){
         this.y = this.ny;
         this.dx = this.tx;
         this.dy = this.ty;
+        this.ls.x = this.dx;
+        this.ls.y = this.dy;
     };
 
     this.move = function() {
         this.dx += Player.HOP_SPEED * delta * this.xspeed;
         this.dy += Player.HOP_SPEED * delta * this.yspeed;
+        this.ls.x = this.dx;
+        this.ls.y = this.dy;
         if((this.xspeed != 0 && this.dx * this.xspeed >= this.tx * this.xspeed) ||
             (this.yspeed != 0 && this.dy * this.yspeed >= this.ty * this.yspeed)){
             this.endMove();
