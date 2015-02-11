@@ -48,9 +48,10 @@ var LightSource = function (x, y, r, rflicker) {
     var that = this;
 
     this.update = function () {
-        console.log("update");
-        for (var i = 0; i < this.r.size; i++) {
-            this.fr[i] = this.r[i] + Math.random() * this.rflicker * 2 - this.rflicker;
+        console.log("update "+that.r.size);
+        var flicker = Math.random() * that.rflicker * 2 - that.rflicker;
+        for (var i = 0; i < 3; i++) {
+            that.fr[i] = that.r[i] + ( that.r[i] / 100 ) * flicker;
         }
     };
 
