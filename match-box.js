@@ -8,12 +8,19 @@ var maze = new Maze();
 
 var delta, now, then;
 
+var cachedMaze = document.createElement('canvas');
+cachedMaze.width = WIDTH;
+cachedMaze.height = HEIGHT;
+var imctx = cachedMaze.getContext("2d");
+
 var animate = window.requestAnimationFrame ||
     window.webkitRequestAnimationFrame ||
     window.mozRequestAnimationFrame ||
     function(callback) { window.setTimeout(callback, 1000 / FRAMES_PER_SECOND) };
 
 window.onload = function() {
+    renderBackground(imctx);
+    maze.render(imctx);
     animate(step);
 };
 
@@ -29,12 +36,11 @@ function update() {
 }
 
 function render() {
-    renderBackground();
-    maze.render(ctx);
+    ctx.drawImage(cachedMaze, 0, 0);
     player.render(ctx);
 }
 
-function renderBackground() {
+function renderBackground(ctx) {
     ctx.fillStyle = "#000000";
     ctx.fillRect(0, 0, WIDTH, HEIGHT);
 }
