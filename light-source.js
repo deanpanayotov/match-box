@@ -15,7 +15,7 @@ var LightSourceManager = function () {
         }
     }
 
-    setInterval((function(self) { return function() { self.update(); } })(this), 120);
+    setInterval((function(self) { return function() { self.update(); } })(this), LightSourceManager.INTERVAL);
 
 
     this.addLightSource = function (ls) {
@@ -35,6 +35,9 @@ var LightSourceManager = function () {
         }
     }
 }
+
+LightSourceManager.INTERVAL = 120;
+LightSourceManager.LIGHT_LAYERS = 3;
 
 var LightSource = function (x, y, r, rflicker) {
     this.x = x;

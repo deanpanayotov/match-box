@@ -48,7 +48,7 @@ function update() {
 
 function render(){
     renderBackground(ctx);
-    for (var i = 0; i < 3; i++) {
+    for (var i = 0; i < LightSourceManager.LIGHT_LAYERS; i++) {
         ctx.save();
         ctx.beginPath();
         ctx.globalAlpha = 0.4 + 0.2 * i;
