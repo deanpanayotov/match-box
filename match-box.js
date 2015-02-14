@@ -14,8 +14,8 @@ lsmanager.addLightSource(new LightSource(
     1 + Math.floor(Math.random() * MAZE_HEIGHT) * 2 * STEP + STEP / 2,
     [ 120, 80, 50], 5));
 
-var player = new Player();
-var maze = new Maze();
+var player = undefined;
+var maze = undefined;
 
 var delta, now, then;
 
@@ -30,9 +30,13 @@ var animate = window.requestAnimationFrame ||
     function(callback) { window.setTimeout(callback, 1000 / FRAMES_PER_SECOND) };
 
 window.onload = function() {
-    renderBackground(imctx);
-    maze.render(imctx);
-    animate(step);
+    loadImages(function(){
+        player = new Player();
+        maze = new Maze();
+        renderBackground(imctx);
+        maze.render(imctx);
+        animate(step);
+    });
 };
 
 function step() {

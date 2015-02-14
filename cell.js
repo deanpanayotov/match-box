@@ -9,13 +9,13 @@ var Cell = function(x, y, type){
 
     switch (this.type){
         case Cell.VERTICAL_WALL:
-            this.image = a_i_wall_wh_v;
+            this.image = images.wall_vertical;
             break;
         case Cell.HORIZONTAL_WALL:
-            this.image = a_i_wall_wh_h;
+            this.image = images.wall_horizontal;
             break;
         case Cell.WALL_JOINT:
-            this.image = a_i_wall_wh_x;
+            this.image = images.wall_intersection;
             break;
         default:
             this.image = undefined;
