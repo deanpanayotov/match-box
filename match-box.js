@@ -3,7 +3,7 @@ canvas.width = WIDTH;
 canvas.height = HEIGHT;
 var ctx = canvas.getContext("2d");
 
-var lsmanager = new LightSourceManager();
+var lsmanager = new LightManager();
 
 lsmanager.addLightSource(new LightSource(
     1 + Math.floor(Math.random() * MAZE_WIDTH) * 2 * STEP + STEP / 2,
@@ -52,7 +52,7 @@ function update() {
 
 function render(){
     renderBackground(ctx);
-    for (var i = 0; i < LightSourceManager.LIGHT_LAYERS; i++) {
+    for (var i = 0; i < LightManager.LIGHT_LAYERS; i++) {
         ctx.save();
         ctx.beginPath();
         ctx.globalAlpha = 0.4 + 0.2 * i;
