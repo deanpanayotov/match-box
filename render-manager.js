@@ -1,7 +1,7 @@
 /**
  * Created by Dean Panayotov Local on 15.2.2015 г..
  */
-var LightManager = function () {
+var RenderManager = function () {
 
     this.lightSources = [];
     this.idCounter = 0;
@@ -14,7 +14,7 @@ var LightManager = function () {
         }
     }
 
-    setInterval((function(self) { return function() { self.update(); } })(this), LightManager.INTERVAL);
+    setInterval((function(self) { return function() { self.update(); } })(this), RenderManager.INTERVAL);
 
 
     this.addLightSource = function (ls) {
@@ -35,5 +35,5 @@ var LightManager = function () {
     }
 }
 
-LightManager.INTERVAL = 120;
-LightManager.LIGHT_LAYERS = 3;
+RenderManager.INTERVAL = 120;
+RenderManager.LIGHT_LAYERS = 3;
