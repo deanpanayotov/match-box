@@ -1,7 +1,12 @@
-var canvas = document.getElementById("canvas");
-canvas.width = WIDTH;
-canvas.height = HEIGHT;
-var ctx = canvas.getContext("2d");
+var mainCanvas = document.getElementById("canvas");
+mainCanvas.width = WIDTH;
+mainCanvas.height = HEIGHT;
+var mainCanvasContext = mainCanvas.getContext("2d");
+
+var backCanvas = getCanvasInstance();
+var backCanvasContext = backCanvas.getContext("2d");
+var frontCanvas = getCanvasInstance();
+var frontCanvasContext = backCanvas.getContext("2d");
 
 var lsmanager = new RenderManager();
 
@@ -19,11 +24,6 @@ var maze = undefined;
 
 var delta, now, then;
 
-var cachedMaze = document.createElement('canvas');
-cachedMaze.width = WIDTH;
-cachedMaze.height = HEIGHT;
-var imctx = cachedMaze.getContext("2d");
-
 var animate = window.requestAnimationFrame ||
     window.webkitRequestAnimationFrame ||
     window.mozRequestAnimationFrame ||
@@ -33,8 +33,8 @@ window.onload = function() {
     loadImages(function(){
         player = new Player();
         maze = new Maze();
-        renderBackground(imctx);
-        maze.render(imctx);
+        renderBackground(backCanvasContext);
+        maze.render(backCanvasContext);
         animate(step);
     });
 };
@@ -51,18 +51,21 @@ function update() {
 }
 
 function render(){
-    renderBackground(ctx);
+    renderBackground(mainCanvasContext);
+    //frontCanvasContext.clearRect(0, 0, frontCanvas.width, frontCanvas.height);
+    frontCanvasContext.width = frontCanvasContext.width;
     for (var i = 0; i < RenderManager.LIGHT_LAYERS; i++) {
-        ctx.save();
-        ctx.beginPath();
-        ctx.globalAlpha = 0.4 + 0.2 * i;
-        lsmanager.renderLayer(ctx, i);
-        ctx.closePath();
-        ctx.clip();
-        ctx.drawImage(cachedMaze, 0, 0);
-        ctx.restore();
+        mainCanvasContext.save();
+        mainCanvasContext.beginPath();
+        mainCanvasContext.globalAlpha = 0.4 + 0.2 * i;
+        lsmanager.renderLayer(mainCanvasContext, i);
+        mainCanvasContext.closePath();
+        mainCanvasContext.clip();
+        mainCanvasContext.drawImage(backCanvas, 0, 0);
+//        mainCanvasContext.drawImage(frontCanvas, 0, 0);
+        player.render(mainCanvasContext);
+        mainCanvasContext.restore();
     }
-    player.render(ctx);
 }
 
 function renderBackground(ctx) {
@@ -82,4 +85,11 @@ function setDelta(){
     now = Date.now();
     delta = (now - then) / 1000; // seconds since last frame
     then = now;
+}
+
+function getCanvasInstance(){
+    var canvas = document.createElement('canvas');
+    canvas.width = WIDTH;
+    canvas.height = HEIGHT;
+    return canvas;
 }
