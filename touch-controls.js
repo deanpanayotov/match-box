@@ -1,10 +1,12 @@
-/*globals document, keysDown*/
+/*globals document, keysDown, Player, console, setTimeout*/
+//jshint -W057, -W060
 
 var TouchControl = new (function TouchControl() {
 	var self = this;
 
 	var mEnd;
 	var mStart;
+	var mChain;
 
 	var PI_2 = Math.PI * 2;
 	var PI_1$4 = Math.PI / 4;
@@ -25,17 +27,6 @@ var TouchControl = new (function TouchControl() {
 
 		return (angle < 0) ? PI_2 + angle : angle;
 	};
-
-	var TOUCH_PROPERTIES = 'identifier pageX pageY'.split(' ');
-	function copyTouch(aTouch) {
-		var retval = {};
-
-		TOUCH_PROPERTIES.forEach(function(aKey) {
-			retval[aKey] = aTouch[aKey];
-		});
-
-		return retval;
-	}
 
 	function clearKeys() {
 		var directions = [
