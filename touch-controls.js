@@ -92,6 +92,8 @@ var TouchControl = new (function TouchControl() {
 	}
 
 	function touchStart(aEvent) {
+		aEvent.preventDefault();
+
 		if (mStart) {
 			console.log('Multitouch detected');
 		}
@@ -101,12 +103,16 @@ var TouchControl = new (function TouchControl() {
 	}
 
 	function touchEnd(aEvent) {
+		aEvent.preventDefault();
+
 		mStart = null;
 		mEnd = null;
 		clearKeys();
 	}
 
 	function touchMove(aEvent) {
+		aEvent.preventDefault();
+
 		if (!mEnd) {
 			setTimeout(setKeys, SENITIVITY);
 		}
