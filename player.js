@@ -15,7 +15,7 @@ var Player = function(){
     this.isMoving = false;
 
     this.ls = new LightSource(this.dx, this.dy, [200, 140, 90], 6);
-    lsmanager.addLightSource(this.ls);
+    lightManager.addLightSource(this.ls);
 
     this.update = function(){
         if(this.isMoving) {

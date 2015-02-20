@@ -6,13 +6,13 @@ var mainCanvasContext = mainCanvas.getContext("2d");
 var backCanvas = getCanvasInstance();
 var backCanvasContext = backCanvas.getContext("2d");
 
-var lsmanager = new RenderManager();
+var lightManager = new RenderManager();
 
-lsmanager.addLightSource(new LightSource(
+lightManager.addLightSource(new LightSource(
     1 + Math.floor(Math.random() * MAZE_WIDTH) * 2 * STEP + STEP / 2,
     1 + Math.floor(Math.random() * MAZE_HEIGHT) * 2 * STEP + STEP / 2,
     [ 100, 70, 40], 5));
-lsmanager.addLightSource(new LightSource(
+lightManager.addLightSource(new LightSource(
     1 + Math.floor(Math.random() * MAZE_WIDTH) * 2 * STEP + STEP / 2,
     1 + Math.floor(Math.random() * MAZE_HEIGHT) * 2 * STEP + STEP / 2,
     [ 120, 80, 50], 5));
@@ -54,13 +54,17 @@ function render(){
         mainCanvasContext.save();
         mainCanvasContext.beginPath();
         mainCanvasContext.globalAlpha = 0.4 + 0.2 * i;
-        lsmanager.renderLayer(mainCanvasContext, i);
+        lightManager.renderLayer(mainCanvasContext, i);
         mainCanvasContext.closePath();
         mainCanvasContext.clip();
         mainCanvasContext.drawImage(backCanvas, 0, 0);
         player.render(mainCanvasContext);
         mainCanvasContext.restore();
     }
+}
+
+function renderClipped(){
+
 }
 
 function renderBackground(ctx) {
