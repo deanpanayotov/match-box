@@ -6,7 +6,7 @@ var mainCanvasContext = mainCanvas.getContext("2d");
 var backCanvas = getCanvasInstance();
 var backCanvasContext = backCanvas.getContext("2d");
 var frontCanvas = getCanvasInstance();
-var frontCanvasContext = backCanvas.getContext("2d");
+var frontCanvasContext = frontCanvas.getContext("2d");
 
 var lsmanager = new RenderManager();
 
