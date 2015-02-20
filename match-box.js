@@ -5,8 +5,6 @@ var mainCanvasContext = mainCanvas.getContext("2d");
 
 var backCanvas = getCanvasInstance();
 var backCanvasContext = backCanvas.getContext("2d");
-var frontCanvas = getCanvasInstance();
-var frontCanvasContext = frontCanvas.getContext("2d");
 
 var lsmanager = new RenderManager();
 
@@ -52,8 +50,6 @@ function update() {
 
 function render(){
     renderBackground(mainCanvasContext);
-    //frontCanvasContext.clearRect(0, 0, frontCanvas.width, frontCanvas.height);
-    frontCanvasContext.width = frontCanvasContext.width;
     for (var i = 0; i < RenderManager.LIGHT_LAYERS; i++) {
         mainCanvasContext.save();
         mainCanvasContext.beginPath();
@@ -62,7 +58,6 @@ function render(){
         mainCanvasContext.closePath();
         mainCanvasContext.clip();
         mainCanvasContext.drawImage(backCanvas, 0, 0);
-//        mainCanvasContext.drawImage(frontCanvas, 0, 0);
         player.render(mainCanvasContext);
         mainCanvasContext.restore();
     }
