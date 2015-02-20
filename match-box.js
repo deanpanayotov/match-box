@@ -40,7 +40,7 @@ window.onload = function() {
 function step() {
     setDelta();
     update();
-    render();
+    renderClipped();
     animate(step);
 }
 
@@ -48,23 +48,18 @@ function update() {
     player.update();
 }
 
-function render(){
+function renderClipped(){
     renderBackground(mainCanvasContext);
-    for (var i = 0; i < RenderManager.LIGHT_LAYERS; i++) {
-        mainCanvasContext.save();
-        mainCanvasContext.beginPath();
-        mainCanvasContext.globalAlpha = 0.4 + 0.2 * i;
-        lightManager.renderLayer(mainCanvasContext, i);
-        mainCanvasContext.closePath();
-        mainCanvasContext.clip();
-        mainCanvasContext.drawImage(backCanvas, 0, 0);
-        player.render(mainCanvasContext);
-        mainCanvasContext.restore();
-    }
+    lightManager.render(mainCanvasContext, render);
 }
 
-function renderClipped(){
+function render(ctx){
+    renderMaze(ctx);
+    player.render(ctx);
+}
 
+function renderMaze(ctx){
+    ctx.drawImage(backCanvas, 0, 0);
 }
 
 function renderBackground(ctx) {
