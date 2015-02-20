@@ -27,6 +27,8 @@ var RenderManager = function () {
     }
 
     this.render = function(ctx, renderVisibleObjects){
+        ctx.fillStyle = "#000000";
+        ctx.fillRect(0, 0, WIDTH, HEIGHT);
         for (var i = 0; i < RenderManager.LIGHT_LAYERS; i++) {
             ctx.save();
             ctx.globalAlpha = RenderManager.MIN_ALPHA + RenderManager.ALPHA_STEP * i;

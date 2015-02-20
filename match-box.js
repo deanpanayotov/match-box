@@ -31,7 +31,6 @@ window.onload = function() {
     loadImages(function(){
         player = new Player();
         maze = new Maze();
-        renderBackground(backCanvasContext);
         maze.render(backCanvasContext);
         animate(step);
     });
@@ -40,17 +39,12 @@ window.onload = function() {
 function step() {
     setDelta();
     update();
-    renderClipped();
+    lightManager.render(mainCanvasContext, render);
     animate(step);
 }
 
 function update() {
     player.update();
-}
-
-function renderClipped(){
-    renderBackground(mainCanvasContext);
-    lightManager.render(mainCanvasContext, render);
 }
 
 function render(ctx){
@@ -60,11 +54,6 @@ function render(ctx){
 
 function renderMaze(ctx){
     ctx.drawImage(backCanvas, 0, 0);
-}
-
-function renderBackground(ctx) {
-    ctx.fillStyle = "#000000";
-    ctx.fillRect(0, 0, WIDTH, HEIGHT);
 }
 
 function oddRange(num){
