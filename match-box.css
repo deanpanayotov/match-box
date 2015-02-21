@@ -1,11 +1,19 @@
-#canvas {
-    width: 100vw;
-    height: 56.25vw; /* 100/56.25 = 1.778 */
-    background: pink;
-    max-height: 100vh;
-    max-width: 177.78vh; /* 16/9 = 1.778 */
-    margin: auto;
-    position: absolute;
-    top:0;bottom:0; /* vertical center */
-    left:0;right:0; /* horizontal center */
+body {
+	overflow: hidden;
+	margin: 0px;
+	background-color: black;
+}
+
+canvas {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+}
+
+.t-center {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
 }

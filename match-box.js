@@ -1,6 +1,10 @@
 var mainCanvas = document.getElementById("canvas");
+
 mainCanvas.width = WIDTH;
 mainCanvas.height = HEIGHT;
+mainCanvas.style.marginLeft = -Math.floor(WIDTH / 2) + 'px';
+mainCanvas.style.marginTop = -Math.floor(HEIGHT / 2) + 'px';
+
 var mainCanvasContext = mainCanvas.getContext("2d");
 
 var backCanvas = getCanvasInstance();
