@@ -6,7 +6,7 @@ var TouchControl = new (function TouchControl() {
 
 	var mEnd;
 	var mStart;
-	var mChain;
+	var mChain = true;
 
 	var PI_2 = Math.PI * 2;
 	var PI_1$4 = Math.PI / 4;
@@ -77,7 +77,7 @@ var TouchControl = new (function TouchControl() {
 
 	function touchPoint(aEvent) {
 		var touch = aEvent.changedTouches[0];
-		var retval = new Point(touch.screenX, touch.screenY);
+		var retval = new Point(touch.clientX, touch.clientY);
 
 		return retval;
 	}
@@ -124,11 +124,11 @@ var TouchControl = new (function TouchControl() {
 
 		mElement = aElement;
 
-		mElement.addEventListener("touchstart", touchStart, false);
-		mElement.addEventListener("touchend", touchEnd, false);
-		mElement.addEventListener("touchcancel", touchEnd, false);
-		mElement.addEventListener("touchleave", touchEnd, false);
-		mElement.addEventListener("touchmove", touchMove, false);
+		mElement.addEventListener('touchstart', touchStart, false);
+		mElement.addEventListener('touchend', touchEnd, false);
+		mElement.addEventListener('touchcancel', touchEnd, false);
+		mElement.addEventListener('touchleave', touchEnd, false);
+		mElement.addEventListener('touchmove', touchMove, false);
 	};
 
 	self.uninstall = function() {
@@ -136,18 +136,35 @@ var TouchControl = new (function TouchControl() {
 			return;
 		}
 
-		mElement.removeEventListener("touchstart", touchStart, false);
-		mElement.removeEventListener("touchend", touchEnd, false);
-		mElement.removeEventListener("touchcancel", touchEnd, false);
-		mElement.removeEventListener("touchleave", touchEnd, false);
-		mElement.removeEventListener("touchmove", touchMove, false);
+		mElement.removeEventListener('touchstart', touchStart, false);
+		mElement.removeEventListener('touchend', touchEnd, false);
+		mElement.removeEventListener('touchcancel', touchEnd, false);
+		mElement.removeEventListener('touchleave', touchEnd, false);
+		mElement.removeEventListener('touchmove', touchMove, false);
 
 		mElement = null;
 	};
+
+	var mDebug = {
+		get start() {
+			return mStart;
+		},
+
+		get end() {
+			return mEnd;
+		},
+
+		get isChain() {
+			return mChain;
+		}
+	};
+	self.debug = function() {
+		return mDebug;
+	};
 })();
 
-TouchControl.install(document.getElementsByTagName('canvas')[0] || document);
+TouchControl.install(document);
 
 // DEBUG
 var touchChain = true;
-document.write('<input type="checkbox" checked onclick="TouchControl.setChain(touchChain = !touchChain)" style="position: absolute; bottom: 10px; right: 20px">');
+document.write('<input type="checkbox" checked touchstart="return false;" onclick="TouchControl.setChain(touchChain = !touchChain)" style="position: absolute; bottom: 10px; right: 20px">');

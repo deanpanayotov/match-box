@@ -23,6 +23,7 @@ lsmanager.addLightSource(new LightSource(
     1 + Math.floor(Math.random() * MAZE_HEIGHT) * 2 * STEP + STEP / 2,
     [ 120, 80, 50], 5));
 
+var touchDebug;
 var player = undefined;
 var maze = undefined;
 
@@ -37,8 +38,12 @@ window.onload = function() {
     loadImages(function(){
         player = new Player();
         maze = new Maze();
+        touchDebug = new TouchDebug();
+
+        touchDebug.init();
         renderBackground(backCanvasContext);
         maze.render(backCanvasContext);
+
         animate(step);
     });
 };
@@ -70,6 +75,8 @@ function render(){
         player.render(mainCanvasContext);
         mainCanvasContext.restore();
     }
+
+    touchDebug.render(mainCanvasContext);
 }
 
 function renderBackground(ctx) {
