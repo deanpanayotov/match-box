@@ -1,4 +1,16 @@
 function TouchDebug() {
+	construct.apply(this, arguments);
+
+	function construct(aTouchNavigation) {
+		this.data = aTouchNavigation.state;
+
+		this.markerStart = createMarker('limegreen');
+		document.body.appendChild(this.markerStart);
+
+		this.markerEnd = createMarker('coral');
+		document.body.appendChild(this.markerEnd);
+	}
+
 	function point2css(aPoint) {
 		return {
 			top: aPoint.y + 'px',
@@ -37,36 +49,18 @@ function TouchDebug() {
 		return marker;
 	}
 
-	this.init = function() {
-		this.data = TouchControl.debug();
-
-		this.markerStart = createMarker('limegreen');
-		document.body.appendChild(this.markerStart);
-
-		this.markerEnd = createMarker('coral');
-		document.body.appendChild(this.markerEnd);
-	};
-
 	this.render = function(aContext) {
 		var end = this.data.end;
 		var start = this.data.start;
 
 		show(this.markerStart, start);
 		show(this.markerEnd, end);
+
 		if (!(start && end)) {
 			return;
 		}
 
 		css(this.markerStart, point2css(start));
 		css(this.markerEnd, point2css(end));
-
-		/*aContext.fillStyle = 'limegreen';
-		aContext.fillRect(start.x, start.y, 20, 20);
-		aContext.fillStyle = 'coral';
-		aContext.fillRect(end.x, end.y, 20, 20);*/
-
-		aContext.fillStyle = 'coral';
-		aContext.font = '16px Verdana';
-		aContext.fillText(start.x + 'x' + start.y, aContext.canvas.width - 100, aContext.canvas.height - 25);
 	};
 }

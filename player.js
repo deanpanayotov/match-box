@@ -17,27 +17,23 @@ var Player = function(){
     this.ls = new LightSource(this.dx, this.dy, [200, 140, 90], 6);
     lsmanager.addLightSource(this.ls);
 
+    var directionTable = {
+        N: { dx:  0, dy: -2 },
+        S: { dx:  0, dy:  2 },
+        W: { dx: -2, dy:  0 },
+        E: { dx:  2, dy:  0 }
+    };
     this.update = function(){
         if(this.isMoving) {
             this.move();
         }else{
-            f: for (var key in keysDown) {
-                var value = Number(key);
-                switch (value) {
-                    case Player.KEY_LEFT:
-                        if(this.moveTo(this.x - 2, this.y)) break f;
-                        break;
-                    case Player.KEY_UP:
-                        if(this.moveTo(this.x, this.y - 2)) break f;
-                        break;
-                    case Player.KEY_RIGHT:
-                        if(this.moveTo(this.x + 2, this.y)) break f;
-                        break;
-                    case Player.KEY_DOWN:
-                        if(this.moveTo(this.x, this.y + 2)) break f;
-                        break;
-                }
+            var direction = directionTable[navigationController.input];
+
+            if (!direction) {
+                return;
             }
+
+            this.moveTo(this.x + direction.dx, this.y + direction.dy);
         }
     };
 

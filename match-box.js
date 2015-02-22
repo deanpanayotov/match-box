@@ -24,6 +24,9 @@ lsmanager.addLightSource(new LightSource(
     [ 120, 80, 50], 5));
 
 var touchDebug;
+var touchNavigation;
+var navigationController;
+
 var player = undefined;
 var maze = undefined;
 
@@ -38,9 +41,14 @@ window.onload = function() {
     loadImages(function(){
         player = new Player();
         maze = new Maze();
-        touchDebug = new TouchDebug();
 
-        touchDebug.init();
+        touchNavigation = new TouchNavigation(document);
+        touchDebug = new TouchDebug(touchNavigation);
+        navigationController = new NavigationChain(
+            touchNavigation,
+            new KeyboardNavigation(keysDown)
+        );
+
         renderBackground(backCanvasContext);
         maze.render(backCanvasContext);
 
