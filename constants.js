@@ -5,9 +5,11 @@
 var MAZE_WIDTH = 15;
 var MAZE_HEIGHT = 15;
 
-var SCROLL_FIX = 4; // if canvas fits window perfectly Chrome/FF create artificial 4px scroll
+// if canvas fits window perfectly Chrome/FF create artificial 4px vertical scroll
+var VSCROLL_FIX = 4;
+
 var STEP = Math.floor(Math.min(
-	(window.innerHeight - SCROLL_FIX)/(MAZE_HEIGHT*2+1),
+	(window.innerHeight - VSCROLL_FIX)/(MAZE_HEIGHT*2+1),
 	window.innerWidth/(MAZE_WIDTH*2+1)
 ));
 
