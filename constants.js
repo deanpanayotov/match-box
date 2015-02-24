@@ -2,8 +2,12 @@
  * Created by Dean Panayotov Local on 4.2.2015 г..
  */
 
-var WIDTH = 900;
-var HEIGHT = 900;
+
+var CANVAS_PIXELS = 744;
+
+//square
+var WIDTH = CANVAS_PIXELS;
+var HEIGHT = CANVAS_PIXELS;
 
 var MAZE_WIDTH = 15;
 var MAZE_HEIGHT = 15;
