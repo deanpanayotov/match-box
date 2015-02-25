@@ -10,15 +10,6 @@ var Game = function(){
 
     var lightManager = new RenderManager();
 
-    lightManager.addLightSource(new LightSource(
-            1 + Math.floor(Math.random() * MAZE_SIZE) * 2 * STEP + STEP / 2,
-            1 + Math.floor(Math.random() * MAZE_SIZE) * 2 * STEP + STEP / 2,
-        [ 100, 70, 40], 5));
-    lightManager.addLightSource(new LightSource(
-            1 + Math.floor(Math.random() * MAZE_SIZE) * 2 * STEP + STEP / 2,
-            1 + Math.floor(Math.random() * MAZE_SIZE) * 2 * STEP + STEP / 2,
-        [ 120, 80, 50], 5));
-
     var player = undefined;
     var maze = undefined;
     var stopwatch = undefined;
@@ -59,8 +50,8 @@ var Game = function(){
     }
 
     this.start = function() {
-        player = new Player(lightManager);
-        maze = new Maze();
+        maze = new Maze(lightManager);
+        player = new Player(lightManager, maze.positioning.playerx, maze.positioning.playery);
         stopwatch = new Stopwatch(document.getElementById('time'));
         stopwatch.start();
         maze.render(backCanvasContext);

@@ -2,10 +2,10 @@
  * Created by Dean Panayotov Local on 5.2.2015 г..
  */
 
-var Player = function(lightManager){
+var Player = function(lightManager, x, y){
 
-    this.x = (1 + Math.floor(Math.random() * MAZE_SIZE) * 2);
-    this.y = (1 + Math.floor(Math.random() * MAZE_SIZE) * 2);
+    this.x = x;
+    this.y = y;
     this.nx = this.x;
     this.ny = this.y;
     this.dx = this.x * STEP + STEP / 2;
