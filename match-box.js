@@ -16,11 +16,14 @@ var Game = function(){
 
     var delta, now, then;
 
+    var paused = false;
+
     function step() {
         setDelta();
         update();
         lightManager.render(mainCanvasContext, render);
-        animate(step);
+        if(!paused)
+            animate(step);
     }
 
     function update() {
@@ -51,7 +54,8 @@ var Game = function(){
 
     this.start = function() {
         maze = new Maze(lightManager);
-        player = new Player(lightManager, maze.positioning.playerx, maze.positioning.playery);
+        player = new Player(lightManager, maze.positioning);
+        player.setEndGameCallback(this.stop);
         stopwatch = new Stopwatch(document.getElementById('time'));
         stopwatch.start();
         maze.render(backCanvasContext);
@@ -60,6 +64,7 @@ var Game = function(){
 
     this.stop = function(){
         stopwatch.stop();
+        paused = true;
     }
 };
 

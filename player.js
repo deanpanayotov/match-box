@@ -2,10 +2,13 @@
  * Created by Dean Panayotov Local on 5.2.2015 г..
  */
 
-var Player = function(lightManager, x, y){
+var Player = function(lightManager, positioning){
 
-    this.x = x;
-    this.y = y;
+    this.x = positioning.playerx;
+    this.y = positioning.playery;
+    this.ex = positioning.endx;
+    this.ey = positioning.endy;
+
     this.nx = this.x;
     this.ny = this.y;
     this.dx = this.x * STEP + STEP / 2;
@@ -66,6 +69,11 @@ var Player = function(lightManager, x, y){
         this.dy = this.ty;
         this.ls.x = this.dx;
         this.ls.y = this.dy;
+
+        if(this.x == this.ex && this.y == this.ey){
+            console.log("end");
+            this.endgameCallback();
+        }
     };
 
     this.move = function(delta) {
@@ -85,6 +93,10 @@ var Player = function(lightManager, x, y){
         ctx.arc(this.dx, this.dy, Player.RADIUS, 0, Player.PI2);
         ctx.fill()
     };
+
+    this.setEndGameCallback = function(callback){
+        this.endgameCallback = callback;
+    }
 
 };
 
