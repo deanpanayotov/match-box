@@ -21,6 +21,7 @@ var Game = function(){
 
     var player = undefined;
     var maze = undefined;
+    var stopwatch = undefined;
 
     var delta, now, then;
 
@@ -60,8 +61,14 @@ var Game = function(){
     this.start = function(){
         player = new Player(lightManager);
         maze = new Maze();
+        stopwatch = new Stopwatch(document.getElementById('time'));
+        stopwatch.start();
         maze.render(backCanvasContext);
         animate(step);
+    }
+
+    this.stop = function(){
+        stopwatch.stop();
     }
 };
 
