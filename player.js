@@ -2,7 +2,7 @@
  * Created by Dean Panayotov Local on 5.2.2015 г..
  */
 
-var Player = function(){
+var Player = function(lightManager){
 
     this.x = (1 + Math.floor(Math.random() * MAZE_WIDTH) * 2);
     this.y = (1 + Math.floor(Math.random() * MAZE_HEIGHT) * 2);
@@ -17,31 +17,31 @@ var Player = function(){
     this.ls = new LightSource(this.dx, this.dy, [200, 140, 90], 6);
     lightManager.addLightSource(this.ls);
 
-    this.update = function(){
+    this.update = function(delta, maze){
         if(this.isMoving) {
-            this.move();
+            this.move(delta);
         }else{
             f: for (var key in keysDown) {
                 var value = Number(key);
                 switch (value) {
                     case Player.KEY_LEFT:
-                        if(this.moveTo(this.x - 2, this.y)) break f;
+                        if(this.moveTo(this.x - 2, this.y, delta, maze)) break f;
                         break;
                     case Player.KEY_UP:
-                        if(this.moveTo(this.x, this.y - 2)) break f;
+                        if(this.moveTo(this.x, this.y - 2, delta, maze)) break f;
                         break;
                     case Player.KEY_RIGHT:
-                        if(this.moveTo(this.x + 2, this.y)) break f;
+                        if(this.moveTo(this.x + 2, this.y, delta, maze)) break f;
                         break;
                     case Player.KEY_DOWN:
-                        if(this.moveTo(this.x, this.y + 2)) break f;
+                        if(this.moveTo(this.x, this.y + 2, delta, maze)) break f;
                         break;
                 }
             }
         }
     };
 
-    this.moveTo = function(nx, ny) {
+    this.moveTo = function(nx, ny, delta, maze) {
         var midx = (this.x + nx) / 2;
         var midy = (this.y + ny) / 2;
         if (maze.cells[midx][midy] === undefined) {
@@ -52,7 +52,7 @@ var Player = function(){
             this.tx = nx * STEP + STEP / 2;
             this.ty = ny * STEP + STEP / 2;
             this.isMoving = true;
-            this.move();
+            this.move(delta);
             return true;
         }
         return false;
@@ -68,7 +68,7 @@ var Player = function(){
         this.ls.y = this.dy;
     };
 
-    this.move = function() {
+    this.move = function(delta) {
         this.dx += Player.HOP_SPEED * delta * this.xspeed;
         this.dy += Player.HOP_SPEED * delta * this.yspeed;
         this.ls.x = this.dx;

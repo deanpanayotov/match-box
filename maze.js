@@ -93,6 +93,14 @@ var Maze = function(){
         }
     };
 
+    function oddRange(num){
+        return Math.floor(Math.random() * num) * 2 + 1;
+    }
+
+    function evenRange(num) {
+        return Math.floor(Math.random() * (num - 1)) * 2 + 2;
+    }
+
     this.render = function (ctx) {
         for (var x = 0; x < MAZE_WIDTH * 2 + 1; x++) {
             for (var y = 0; y < MAZE_HEIGHT * 2 + 1; y++) {
