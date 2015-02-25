@@ -81,17 +81,18 @@ var Maze = function(){
     };
 
     this.wreckWalls = function(m){
-        var numberWallsToWreck = MAZE_WIDTH * MAZE_HEIGHT * WRECK_PERCENTAGE;
+        var numberWallsToWreck = MAZE_SIZE * MAZE_SIZE * WRECK_PERCENTAGE;
         var x, y;
         while (numberWallsToWreck > 0) {
-            x = (numberWallsToWreck % 2 == 0 ? oddRange(MAZE_WIDTH) : evenRange(MAZE_WIDTH));
-            y = (numberWallsToWreck % 2 == 0 ? evenRange(MAZE_HEIGHT) : oddRange(MAZE_HEIGHT));
+            x = (numberWallsToWreck % 2 == 0 ? oddRange(MAZE_SIZE) : evenRange(MAZE_SIZE));
+            y = (numberWallsToWreck % 2 == 0 ? evenRange(MAZE_SIZE) : oddRange(MAZE_SIZE));
             if (m[x][y] != undefined) {
                 m[x][y] = undefined;
                 numberWallsToWreck--;
             }
         }
     };
+
 
     function oddRange(num){
         return Math.floor(Math.random() * num) * 2 + 1;
@@ -102,8 +103,8 @@ var Maze = function(){
     }
 
     this.render = function (ctx) {
-        for (var x = 0; x < MAZE_WIDTH * 2 + 1; x++) {
-            for (var y = 0; y < MAZE_HEIGHT * 2 + 1; y++) {
+        for (var x = 0; x < MAZE_SIZE * 2 + 1; x++) {
+            for (var y = 0; y < MAZE_SIZE * 2 + 1; y++) {
                 if (this.cells[x][y]) {
                     this.cells[x][y].render(ctx);
                 }
@@ -111,6 +112,6 @@ var Maze = function(){
         }
     };
 
-    this.cells = this.parseMaze(this.generateMaze(MAZE_WIDTH, MAZE_HEIGHT));
+    this.cells = this.parseMaze(this.generateMaze(MAZE_SIZE, MAZE_SIZE));
 
 };

@@ -4,8 +4,8 @@
 
 var Player = function(lightManager){
 
-    this.x = (1 + Math.floor(Math.random() * MAZE_WIDTH) * 2);
-    this.y = (1 + Math.floor(Math.random() * MAZE_HEIGHT) * 2);
+    this.x = (1 + Math.floor(Math.random() * MAZE_SIZE) * 2);
+    this.y = (1 + Math.floor(Math.random() * MAZE_SIZE) * 2);
     this.nx = this.x;
     this.ny = this.y;
     this.dx = this.x * STEP + STEP / 2;
