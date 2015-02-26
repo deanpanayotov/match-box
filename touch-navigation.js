@@ -9,11 +9,13 @@ function TouchNavigation() {
 	var mEnd;
 	var mStart;
 
+	var mAngle;
 	var mFollow;
 	var mElement;
 	var mDivider;
 	var mDirections;
 	var mSenitivity;
+	var mTreshold = 3;
 
 	function construct(aElement, aDirections, aSensitivity, aFollow) {
 		var directions = aDirections || 'EWNS';
@@ -24,7 +26,7 @@ function TouchNavigation() {
 
 		mElement = aElement;
 		mFollow = !!aFollow;
-		mSenitivity = aSensitivity || (1000 / 20);
+		mSenitivity = aSensitivity || (1000 / 40);
 		mDivider = (Math.PI * 2) / mDirections.values.length;
 
 		installListeners();
@@ -50,19 +52,27 @@ function TouchNavigation() {
 	}
 
 	function setKeys() {
-		clearInput();
-
 		if (!mEnd || !mStart) {
+			clearInput();
+
 			return;
 		}
 
-		var angle = Point.angle2PI(mStart, mEnd) + mDirections.offset;
-		var idx = Math.floor(angle / mDivider) % mDirections.values.length;
+		var dx = Math.abs(mStart.x - mEnd.x);
+		var dy = Math.abs(mStart.y - mEnd.y);
 
-		self.input = mDirections.values[idx];
+		// skip small artificial fluctations
+		if (dx > mTreshold || dy > mTreshold) {
+			mAngle = Point.angle2PI(mStart, mEnd);
 
-		if (mFollow) {
-			mStart = mEnd;
+			var angle = mAngle + mDirections.offset;
+			var idx = Math.floor(angle / mDivider) % mDirections.values.length;
+
+			self.input = mDirections.values[idx];
+
+			if (mFollow) {
+				mStart = mEnd;
+			}
 		}
 
 		mEnd = null;
@@ -149,6 +159,10 @@ function TouchNavigation() {
 			return self.input;
 		},
 
+		get angle() {
+			return mAngle;
+		},
+
 		get element() {
 			return mElement;
 		},
@@ -179,6 +193,14 @@ function TouchNavigation() {
 
 		set sensitivity(aValue) {
 			mSenitivity = aValue;
+		},
+
+		get treshold() {
+			return mTreshold;
+		},
+
+		set treshold(aValue) {
+			mTreshold = aValue;
 		}
 	};
 }
