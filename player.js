@@ -24,9 +24,9 @@ var Player = function(){
         E: { dx:  2, dy:  0 }
     };
     this.update = function(){
-        if(this.isMoving) {
+        if (this.isMoving) {
             this.move();
-        }else{
+        } else {
             var direction = directionTable[navigationController.input];
 
             if (!direction) {
@@ -75,11 +75,27 @@ var Player = function(){
         }
     };
 
+    var symbols = {
+        E: '\u2192',
+        N: '\u2191',
+        W: '\u2190',
+        S: '\u2193'
+    };
+    var symbols2 = {
+        E: '>',
+        N: '^',
+        W: '<',
+        S: 'V'
+    };
     this.render = function(ctx){
         ctx.fillStyle = "#DD77EE";
         ctx.beginPath();
         ctx.arc(this.dx, this.dy, Player.RADIUS, 0, Player.PI2);
-        ctx.fill()
+        ctx.fill();
+
+        //ctx.font = '20px bold Monaco';
+        ctx.fillStyle = 'black';
+        ctx.fillText(symbols2[navigationController.input] || '', player.dx - 4, player.dy + 3);
     };
 
 };
