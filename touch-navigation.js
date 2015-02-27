@@ -17,7 +17,7 @@ function TouchNavigation() {
 	var mSenitivity;
 	var mTreshold = 3;
 
-	function construct(aElement, aDirections, aSensitivity, aFollow) {
+	function construct(aElement, aDirections, aFollow, aSensitivity) {
 		var directions = aDirections || 'EWNS';
 
 		mDirections = typeof(directions) === 'string'

@@ -63,7 +63,7 @@ var Game = function() {
     this.start = function() {
         maze = new Maze(lightManager);
 
-        touchNavigation = new TouchNavigation(document);
+        touchNavigation = new TouchNavigation(document, 'EWNS', true);
         touchDebug = new TouchDebug(touchNavigation);
         navigationController = new NavigationChain(
             touchNavigation,
