@@ -40,6 +40,7 @@ var Game = function() {
     function render(ctx){
         renderMaze(ctx);
         player.render(ctx);
+        touchDebug.render(ctx);
     }
 
     function renderMaze(ctx){
