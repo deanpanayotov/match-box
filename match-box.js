@@ -1,46 +1,66 @@
-var mainCanvas = document.getElementById("canvas");
+var Game = function() {
 
-mainCanvas.width = WIDTH;
-mainCanvas.height = HEIGHT;
-mainCanvas.style.marginLeft = -Math.floor(WIDTH / 2) + 'px';
-mainCanvas.style.marginTop = -Math.floor(HEIGHT / 2) + 'px';
+    var mainCanvas = document.getElementById("canvas");
+    mainCanvas.width = WIDTH;
+    mainCanvas.height = HEIGHT;
+    mainCanvas.style.marginLeft = -Math.floor(WIDTH / 2) + 'px';
+	mainCanvas.style.marginTop = -Math.floor(HEIGHT / 2) + 'px';
 
-var mainCanvasContext = mainCanvas.getContext("2d");
+    var mainCanvasContext = mainCanvas.getContext("2d");
 
-var backCanvas = getCanvasInstance();
-var backCanvasContext = backCanvas.getContext("2d");
-var frontCanvas = getCanvasInstance();
-var frontCanvasContext = backCanvas.getContext("2d");
+    var backCanvas = getCanvasInstance();
+    var backCanvasContext = backCanvas.getContext("2d");
 
-var lsmanager = new RenderManager();
+    var lightManager = new RenderManager();
 
-lsmanager.addLightSource(new LightSource(
-    1 + Math.floor(Math.random() * MAZE_WIDTH) * 2 * STEP + STEP / 2,
-    1 + Math.floor(Math.random() * MAZE_HEIGHT) * 2 * STEP + STEP / 2,
-    [ 100, 70, 40], 5));
-lsmanager.addLightSource(new LightSource(
-    1 + Math.floor(Math.random() * MAZE_WIDTH) * 2 * STEP + STEP / 2,
-    1 + Math.floor(Math.random() * MAZE_HEIGHT) * 2 * STEP + STEP / 2,
-    [ 120, 80, 50], 5));
+	var touchDebug;
+	var touchNavigation;
+	var navigationController;
 
-var touchDebug;
-var touchNavigation;
-var navigationController;
+    var player = undefined;
+    var maze = undefined;
+    var stopwatch = undefined;
 
-var player = undefined;
-var maze = undefined;
+    var delta, now, then;
 
-var delta, now, then;
+    var paused = false;
 
-var animate = window.requestAnimationFrame ||
-    window.webkitRequestAnimationFrame ||
-    window.mozRequestAnimationFrame ||
-    function(callback) { window.setTimeout(callback, 1000 / FRAMES_PER_SECOND) };
+    function step() {
+        setDelta();
+        update();
+        lightManager.render(mainCanvasContext, render);
+        if(!paused)
+            animate(step);
+    }
 
-window.onload = function() {
-    loadImages(function(){
-        player = new Player();
-        maze = new Maze();
+    function update() {
+        player.update(delta, maze);
+    }
+
+    function render(ctx){
+        renderMaze(ctx);
+        player.render(ctx);
+    }
+
+    function renderMaze(ctx){
+        ctx.drawImage(backCanvas, 0, 0);
+    }
+
+    function setDelta(){
+        now = Date.now();
+        delta = (now - then) / 1000; // seconds since last frame
+        then = now;
+    }
+
+    function getCanvasInstance(){
+        var canvas = document.createElement('canvas');
+        canvas.width = WIDTH;
+        canvas.height = HEIGHT;
+        return canvas;
+    }
+
+    this.start = function() {
+        maze = new Maze(lightManager);
 
         touchNavigation = new TouchNavigation(document);
         touchDebug = new TouchDebug(touchNavigation);
@@ -49,66 +69,34 @@ window.onload = function() {
             new KeyboardNavigation(keysDown)
         );
 
-        renderBackground(backCanvasContext);
+		document.getElementsByTagName('input')[0].addEventListener('click', function() {
+			touchNavigation.state.follow = !touchNavigation.state.follow;
+		}, false);
+
+        player = new Player(lightManager, maze.positioning, navigationController);
+        player.setEndGameCallback(this.stop);
+        stopwatch = new Stopwatch(document.getElementById('time'));
+        stopwatch.start();
         maze.render(backCanvasContext);
 
         animate(step);
+    };
+
+    this.stop = function(){
+        stopwatch.stop();
+        paused = true;
+    }
+};
+
+var game = new Game();
+
+window.onload = function() {
+    loadImages(function(){
+    game.start();
     });
 };
 
-function step() {
-    setDelta();
-    update();
-    render();
-    animate(step);
-}
-
-function update() {
-    player.update();
-}
-
-function render(){
-    renderBackground(mainCanvasContext);
-    //frontCanvasContext.clearRect(0, 0, frontCanvas.width, frontCanvas.height);
-    frontCanvasContext.width = frontCanvasContext.width;
-    for (var i = 0; i < RenderManager.LIGHT_LAYERS; i++) {
-        mainCanvasContext.save();
-        mainCanvasContext.beginPath();
-        mainCanvasContext.globalAlpha = 0.4 + 0.2 * i;
-        lsmanager.renderLayer(mainCanvasContext, i);
-        mainCanvasContext.closePath();
-        mainCanvasContext.clip();
-        mainCanvasContext.drawImage(backCanvas, 0, 0);
-//        mainCanvasContext.drawImage(frontCanvas, 0, 0);
-        player.render(mainCanvasContext);
-        mainCanvasContext.restore();
-    }
-
-    touchDebug.render(mainCanvasContext);
-}
-
-function renderBackground(ctx) {
-    ctx.fillStyle = "#000000";
-    ctx.fillRect(0, 0, WIDTH, HEIGHT);
-}
-
-function oddRange(num){
-    return Math.floor(Math.random() * num) * 2 + 1;
-}
-
-function evenRange(num) {
-    return Math.floor(Math.random() * (num - 1)) * 2 + 2;
-}
-
-function setDelta(){
-    now = Date.now();
-    delta = (now - then) / 1000; // seconds since last frame
-    then = now;
-}
-
-function getCanvasInstance(){
-    var canvas = document.createElement('canvas');
-    canvas.width = WIDTH;
-    canvas.height = HEIGHT;
-    return canvas;
-}
+var animate = window.requestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    function(callback) { window.setTimeout(callback, 1000 / FRAMES_PER_SECOND) };

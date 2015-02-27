@@ -2,7 +2,7 @@
  * Created by Dean Panayotov Local on 8.2.2015 г..
  */
 
-var Maze = function(){
+var Maze = function(lightManager){
 
     this.generateMaze = function(width, height) {
         var totalCells = width * height - 1;
@@ -81,11 +81,11 @@ var Maze = function(){
     };
 
     this.wreckWalls = function(m){
-        var numberWallsToWreck = MAZE_WIDTH * MAZE_HEIGHT * WRECK_PERCENTAGE;
+        var numberWallsToWreck = MAZE_SIZE * MAZE_SIZE * WRECK_PERCENTAGE;
         var x, y;
         while (numberWallsToWreck > 0) {
-            x = (numberWallsToWreck % 2 == 0 ? oddRange(MAZE_WIDTH) : evenRange(MAZE_WIDTH));
-            y = (numberWallsToWreck % 2 == 0 ? evenRange(MAZE_HEIGHT) : oddRange(MAZE_HEIGHT));
+            x = (numberWallsToWreck % 2 == 0 ? oddRange(MAZE_SIZE) : evenRange(MAZE_SIZE));
+            y = (numberWallsToWreck % 2 == 0 ? evenRange(MAZE_SIZE) : oddRange(MAZE_SIZE));
             if (m[x][y] != undefined) {
                 m[x][y] = undefined;
                 numberWallsToWreck--;
@@ -93,9 +93,48 @@ var Maze = function(){
         }
     };
 
+
+    function generateExitPoint(m){
+        var isHorizontal = fiftyfifty();
+        var isStart = fiftyfifty();
+        var x, y, ex, ey, px, py;
+
+        var posRandom = (1 + Math.floor(Math.random() * MAZE_SIZE) * 2);
+        var posEdge = isStart ? 0 : MAZE_SIZE * 2;
+        if(isHorizontal){
+            x = ex = posRandom;
+            px = MAZE_SIZE * 2 - x;
+            y = posEdge;
+            ey = y + (isStart ? -1 : 1);
+            py = isStart ? MAZE_SIZE * 2 - 1 : 1;
+
+        }else{
+            x = posEdge;
+            ex = x + (isStart ? -1 : 1);
+            px = isStart ? MAZE_SIZE * 2 - 1 : 1;
+            y = ey = posRandom;
+            py = MAZE_SIZE * 2 - y;
+        }
+        m[x][y] = undefined;
+        return {lightx:x, lighty:y, endx:ex, endy:ey, playerx:px, playery:py};
+    }
+
+    function fiftyfifty(){
+        return Math.random() > 0.5;
+    }
+
+
+    function oddRange(num){
+        return Math.floor(Math.random() * num) * 2 + 1;
+    }
+
+    function evenRange(num) {
+        return Math.floor(Math.random() * (num - 1)) * 2 + 2;
+    }
+
     this.render = function (ctx) {
-        for (var x = 0; x < MAZE_WIDTH * 2 + 1; x++) {
-            for (var y = 0; y < MAZE_HEIGHT * 2 + 1; y++) {
+        for (var x = 0; x < MAZE_SIZE * 2 + 1; x++) {
+            for (var y = 0; y < MAZE_SIZE * 2 + 1; y++) {
                 if (this.cells[x][y]) {
                     this.cells[x][y].render(ctx);
                 }
@@ -103,6 +142,10 @@ var Maze = function(){
         }
     };
 
-    this.cells = this.parseMaze(this.generateMaze(MAZE_WIDTH, MAZE_HEIGHT));
-
+    this.cells = this.parseMaze(this.generateMaze(MAZE_SIZE, MAZE_SIZE));
+    this.positioning = generateExitPoint(this.cells);
+    lightManager.addLightSource(new LightSource(
+            this.positioning.lightx * STEP + STEP / 2,
+            this.positioning.lighty * STEP + STEP / 2,
+        [ 80, 60, 40], 5));
 };

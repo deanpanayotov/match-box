@@ -10,6 +10,8 @@
 </head>
 <body>
     <canvas id="canvas"></canvas>
+    <span id="time" class="overlay noselect">time: 0:00.000</span>
+    <span id="matches" class="overlay noselect">matches: 3</span>
 
     <script type="text/javascript" src="constants.js"></script>
     <script type="text/javascript" src="keys.js"></script>
@@ -17,15 +19,15 @@
     <script type="text/javascript" src="asset-loader.js"></script>
     <script type="text/javascript" src="cell.js"></script>
     <script type="text/javascript" src="maze.js"></script>
-    <script type="text/javascript" src="render-manager.js"></script>
+    <script type="text/javascript" src="light-manager.js"></script>
     <script type="text/javascript" src="light-source.js"></script>
+    <script type="text/javascript" src="stopwatch.js"></script>
     <script type="text/javascript" src="touch-navigation.js"></script>
     <script type="text/javascript" src="keyboard-navigation.js"></script>
     <script type="text/javascript" src="navigation-chain.js"></script>
     <script type="text/javascript" src="touch-debug.js"></script>
     <script type="text/javascript" src="match-box.js"></script>
 
-    <input type="checkbox" style="position: absolute; bottom: 10px; right: 20px"
-    	onclick="touchNavigation.state.follow = !touchNavigation.state.follow">
+    <input type="checkbox" style="position: absolute; bottom: 10px; right: 20px">
 </body>
 </html>

@@ -2,10 +2,13 @@
  * Created by Dean Panayotov Local on 5.2.2015 г..
  */
 
-var Player = function(){
+var Player = function(lightManager, positioning, navigationController){
 
-    this.x = (1 + Math.floor(Math.random() * MAZE_WIDTH) * 2);
-    this.y = (1 + Math.floor(Math.random() * MAZE_HEIGHT) * 2);
+    this.x = positioning.playerx;
+    this.y = positioning.playery;
+    this.ex = positioning.endx;
+    this.ey = positioning.endy;
+
     this.nx = this.x;
     this.ny = this.y;
     this.dx = this.x * STEP + STEP / 2;
@@ -15,7 +18,7 @@ var Player = function(){
     this.isMoving = false;
 
     this.ls = new LightSource(this.dx, this.dy, [200, 140, 90], 6);
-    lsmanager.addLightSource(this.ls);
+    lightManager.addLightSource(this.ls);
 
     var directionTable = {
         N: { dx:  0, dy: -2 },
@@ -23,9 +26,9 @@ var Player = function(){
         W: { dx: -2, dy:  0 },
         E: { dx:  2, dy:  0 }
     };
-    this.update = function(){
+    this.update = function(delta, maze){
         if (this.isMoving) {
-            this.move();
+            this.move(delta);
         } else {
             var direction = directionTable[navigationController.input];
 
@@ -33,11 +36,11 @@ var Player = function(){
                 return;
             }
 
-            this.moveTo(this.x + direction.dx, this.y + direction.dy);
+            this.moveTo(this.x + direction.dx, this.y + direction.dy, delta, maze);
         }
     };
 
-    this.moveTo = function(nx, ny) {
+    this.moveTo = function(nx, ny, delta, maze) {
         var midx = (this.x + nx) / 2;
         var midy = (this.y + ny) / 2;
         if (maze.cells[midx][midy] === undefined) {
@@ -48,7 +51,7 @@ var Player = function(){
             this.tx = nx * STEP + STEP / 2;
             this.ty = ny * STEP + STEP / 2;
             this.isMoving = true;
-            this.move();
+            this.move(delta);
             return true;
         }
         return false;
@@ -62,9 +65,14 @@ var Player = function(){
         this.dy = this.ty;
         this.ls.x = this.dx;
         this.ls.y = this.dy;
+
+        if(this.x == this.ex && this.y == this.ey){
+            console.log("end");
+            this.endgameCallback();
+        }
     };
 
-    this.move = function() {
+    this.move = function(delta) {
         this.dx += Player.HOP_SPEED * delta * this.xspeed;
         this.dy += Player.HOP_SPEED * delta * this.yspeed;
         this.ls.x = this.dx;
@@ -95,8 +103,12 @@ var Player = function(){
 
         //ctx.font = '20px bold Monaco';
         ctx.fillStyle = 'black';
-        ctx.fillText(symbols2[navigationController.input] || '', player.dx - 4, player.dy + 3);
+        ctx.fillText(symbols2[navigationController.input] || '', this.dx - 4, this.dy + 3);
     };
+
+    this.setEndGameCallback = function(callback){
+        this.endgameCallback = callback;
+    }
 
 };
 
