@@ -4,7 +4,7 @@
 var RenderManager = function () {
 
     this.lightSources = [];
-    this.idCounter = 0;
+    this.idCounter = -1;
 
     this.update = function () {
         for (var i = 0; i < this.lightSources.length; i++) {
@@ -18,8 +18,10 @@ var RenderManager = function () {
 
 
     this.addLightSource = function (ls) {
+        this.idCounter++;
         this.lightSources[this.idCounter] = ls;
-        return this.idCounter++;
+        ls.id = this.idCounter;
+        return this.idCounter;
     }
 
     this.removeLightSource = function (id) {

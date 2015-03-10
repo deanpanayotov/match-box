@@ -3,6 +3,9 @@
  */
 
 var LightSource = function (x, y, r, rflicker) {
+
+    this.id = -1;
+
     this.x = x;
     this.y = y;
     this.r = r;

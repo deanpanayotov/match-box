@@ -3,13 +3,13 @@
  */
 
 
-var CANVAS_PIXELS = 744;
+var CANVAS_PIXELS = 740;
 
 //square
 var WIDTH = CANVAS_PIXELS;
 var HEIGHT = CANVAS_PIXELS;
 
-var MAZE_SIZE = 15;
+var MAZE_SIZE = 18;
 
 var STEP = CANVAS_PIXELS/(MAZE_SIZE*2+1);
 

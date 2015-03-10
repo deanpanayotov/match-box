@@ -2,7 +2,9 @@
  * Created by Dean Panayotov Local on 5.2.2015 г..
  */
 
-var Player = function(lightManager, positioning){
+var Player = function(positioning){
+
+    this.matchCount = 3;
 
     this.x = positioning.playerx;
     this.y = positioning.playery;
@@ -17,10 +19,9 @@ var Player = function(lightManager, positioning){
     this.ty = this.dy;
     this.isMoving = false;
 
-    this.ls = new LightSource(this.dx, this.dy, [200, 140, 90], 6);
-    lightManager.addLightSource(this.ls);
+    var ls = undefined;
 
-    this.update = function(delta, maze){
+    this.update = function(delta, maze, lightManager){
         if(this.isMoving) {
             this.move(delta);
         }else{
@@ -42,6 +43,15 @@ var Player = function(lightManager, positioning){
                 }
             }
         }
+        for (var key in keysDown) {
+            var value = Number(key);
+            if(value == Player.KEY_MATCH && !ls && this.matchCount > 0){
+                this.matchCount --;
+                ls = new LightSource(this.dx, this.dy, [200, 140, 90], 6);
+                lightManager.addLightSource(ls);
+                setTimeout(function() {setLightOff(lightManager)}, 5000);
+            }
+        }
     };
 
     this.moveTo = function(nx, ny, delta, maze) {
@@ -61,14 +71,16 @@ var Player = function(lightManager, positioning){
         return false;
     };
 
-    this.endMove = function(){
+    this.endMove = function() {
         this.isMoving = false;
         this.x = this.nx;
         this.y = this.ny;
         this.dx = this.tx;
         this.dy = this.ty;
-        this.ls.x = this.dx;
-        this.ls.y = this.dy;
+        if (ls) {
+            ls.x = this.dx;
+            ls.y = this.dy;
+        }
 
         if(this.x == this.ex && this.y == this.ey){
             console.log("end");
@@ -79,8 +91,10 @@ var Player = function(lightManager, positioning){
     this.move = function(delta) {
         this.dx += Player.HOP_SPEED * delta * this.xspeed;
         this.dy += Player.HOP_SPEED * delta * this.yspeed;
-        this.ls.x = this.dx;
-        this.ls.y = this.dy;
+        if (ls) {
+            ls.x = this.dx;
+            ls.y = this.dy;
+        }
         if((this.xspeed != 0 && this.dx * this.xspeed >= this.tx * this.xspeed) ||
             (this.yspeed != 0 && this.dy * this.yspeed >= this.ty * this.yspeed)){
             this.endMove();
@@ -98,6 +112,19 @@ var Player = function(lightManager, positioning){
         this.endgameCallback = callback;
     }
 
+    var setLightOff = function(lightManager){
+        console.log("call");
+        if(ls){
+            console.log("callin");
+            lightManager.removeLightSource(ls.id);
+            ls = undefined;
+        }
+    }
+
+    var lightMatch = function(){
+
+    }
+
 };
 
 Player.HOP = STEP * 2; // total number of pixels
@@ -111,3 +138,4 @@ Player.KEY_LEFT = 37;
 Player.KEY_UP = 38;
 Player.KEY_RIGHT = 39;
 Player.KEY_DOWN = 40;
+Player.KEY_MATCH = 32;

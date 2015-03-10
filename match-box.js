@@ -27,7 +27,7 @@ var Game = function(){
     }
 
     function update() {
-        player.update(delta, maze);
+        player.update(delta, maze, lightManager);
     }
 
     function render(ctx){
@@ -52,9 +52,13 @@ var Game = function(){
         return canvas;
     }
 
+    function updatePlayerTorch(){
+
+    }
+
     this.start = function() {
         maze = new Maze(lightManager);
-        player = new Player(lightManager, maze.positioning);
+        player = new Player(maze.positioning);
         player.setEndGameCallback(this.stop);
         stopwatch = new Stopwatch(document.getElementById('time'));
         stopwatch.start();
