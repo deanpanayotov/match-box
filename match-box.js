@@ -54,30 +54,12 @@ var Game = function(){
     }
 
     function handleControls(){
+        if(keysDown[KEY_MATCH]) player.lightMatch(lightManager);
         if(!player.isMoving){
-            f: for (var key in keysDown) {
-                var value = Number(key);
-                switch (value) {
-                    case KEY_LEFT:
-                        if(player.moveTo(player.x - 2, player.y, delta, maze)) break f;
-                        break;
-                    case KEY_UP:
-                        if(player.moveTo(player.x, player.y - 2, delta, maze)) break f;
-                        break;
-                    case KEY_RIGHT:
-                        if(player.moveTo(player.x + 2, player.y, delta, maze)) break f;
-                        break;
-                    case KEY_DOWN:
-                        if(player.moveTo(player.x, player.y + 2, delta, maze)) break f;
-                        break;
-                }
-            }
-        }
-        for (var key in keysDown) {
-            var value = Number(key);
-            if(value == KEY_MATCH){
-                player.lightMatch(lightManager);
-            }
+            if(keysDown[KEY_LEFT])  player.moveTo(player.x - 2, player.y, delta, maze);
+            if(keysDown[KEY_RIGHT]) player.moveTo(player.x + 2, player.y, delta, maze);
+            if(keysDown[KEY_UP])    player.moveTo(player.x, player.y - 2, delta, maze);
+            if(keysDown[KEY_DOWN])  player.moveTo(player.x, player.y + 2, delta, maze);
         }
     }
 
