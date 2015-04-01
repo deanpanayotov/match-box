@@ -4,8 +4,6 @@
 
 var Player = function(positioning){
 
-    this.matchCount = 3;
-
     this.x = positioning.playerx;
     this.y = positioning.playery;
     this.ex = positioning.endx;
@@ -99,12 +97,13 @@ var Player = function(positioning){
 
     this.lightMatch = function(lightManager){
         console.log("light match called!!!");
-        if(!ls && this.matchCount > 0){
-            this.matchCount --;
+        if(!ls){
             ls = new LightSource(this.dx, this.dy, [200, 140, 90], 6);
             lightManager.addLightSource(ls);
             setTimeout(function() {setLightOff(lightManager)}, 5000);
+            return true;
         }
+        return false;
     }
 
 };

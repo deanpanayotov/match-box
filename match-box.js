@@ -7,6 +7,8 @@ var Game = function(){
     var backCanvas = getCanvasInstance();
     var backCanvasContext = backCanvas.getContext("2d");
 
+    var matches = 3;
+    var matchesText = document.getElementById('matches');
     var lightManager = new RenderManager();
 
     var player = undefined;
@@ -52,6 +54,17 @@ var Game = function(){
         return canvas;
     }
 
+    function lightMatch(){
+        if(matches > 0 && player.lightMatch(lightManager)){
+            matches--;
+            updateMatchCount();
+        }
+    }
+
+    function updateMatchCount(){
+        matchesText.innerHTML = "matches: " + matches;
+    }
+
     function handleControls(){
         if(!player.isMoving){
             if(keysDown[KEY_LEFT])  player.moveTo(player.x - 2, player.y, delta, maze);
@@ -59,11 +72,12 @@ var Game = function(){
             if(keysDown[KEY_UP])    player.moveTo(player.x, player.y - 2, delta, maze);
             if(keysDown[KEY_DOWN])  player.moveTo(player.x, player.y + 2, delta, maze);
         }
-        if(keysDown[KEY_MATCH])     player.lightMatch(lightManager);
+        if(keysDown[KEY_MATCH])     lightMatch();
         if(keysDown[KEY_RESTART])   restart();
     }
 
     this.start = function() {
+        updateMatchCount();
         maze = new Maze(lightManager);
         player = new Player(maze.positioning);
         player.setEndGameCallback(this.stop);
