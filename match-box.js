@@ -4,7 +4,6 @@ var Game = function(){
     mainCanvas.width = WIDTH;
     mainCanvas.height = HEIGHT;
     var mainCanvasContext = mainCanvas.getContext("2d");
-
     var backCanvas = getCanvasInstance();
     var backCanvasContext = backCanvas.getContext("2d");
 
@@ -19,11 +18,11 @@ var Game = function(){
     var paused = false;
 
     function step() {
-        setDelta();
-        update();
-        lightManager.render(mainCanvasContext, render);
-        if(!paused)
-            animate(step);
+            setDelta();
+            update();
+            lightManager.render(mainCanvasContext, render);
+            if (!paused)
+                animate(step);
     }
 
     function update() {
@@ -54,13 +53,14 @@ var Game = function(){
     }
 
     function handleControls(){
-        if(keysDown[KEY_MATCH]) player.lightMatch(lightManager);
         if(!player.isMoving){
             if(keysDown[KEY_LEFT])  player.moveTo(player.x - 2, player.y, delta, maze);
             if(keysDown[KEY_RIGHT]) player.moveTo(player.x + 2, player.y, delta, maze);
             if(keysDown[KEY_UP])    player.moveTo(player.x, player.y - 2, delta, maze);
             if(keysDown[KEY_DOWN])  player.moveTo(player.x, player.y + 2, delta, maze);
         }
+        if(keysDown[KEY_MATCH])     player.lightMatch(lightManager);
+        if(keysDown[KEY_RESTART])   restart();
     }
 
     this.start = function() {
@@ -91,3 +91,9 @@ var animate = window.requestAnimationFrame ||
     window.webkitRequestAnimationFrame ||
     window.mozRequestAnimationFrame ||
     function(callback) { window.setTimeout(callback, 1000 / FRAMES_PER_SECOND) };
+
+var restart = function() {
+    game.stop();
+    game = new Game();
+    game.start();
+}

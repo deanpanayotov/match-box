@@ -18,3 +18,4 @@ KEY_UP      = 38;   // up arrow
 KEY_RIGHT   = 39;   // right arrow
 KEY_DOWN    = 40;   // down arrow
 KEY_MATCH   = 32;   // space
+KEY_RESTART = 82    // r/R
