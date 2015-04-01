@@ -6,6 +6,12 @@ var RenderManager = function () {
     this.lightSources = [];
     this.idCounter = -1;
 
+    var maskCanvas = document.createElement('canvas');
+    maskCanvas.width = WIDTH;
+    maskCanvas.height = HEIGHT;
+    var maskCtx = maskCanvas.getContext('2d');
+    maskCtx.fillStyle = "#000000";
+
     this.update = function () {
         for (var i = 0; i < this.lightSources.length; i++) {
             if (this.lightSources[i]) {
@@ -29,15 +35,21 @@ var RenderManager = function () {
     }
 
     this.render = function(ctx, renderVisibleObjects){
-        ctx.fillStyle = "#000000";
-        ctx.fillRect(0, 0, WIDTH, HEIGHT);
+        ctx.globalAlpha = 1;
+        ctx.clearRect(0, 0, WIDTH, HEIGHT);
+        renderVisibleObjects(ctx);
+
         for (var i = 0; i < RenderManager.LIGHT_LAYERS; i++) {
-            ctx.save();
-            ctx.globalAlpha = RenderManager.MIN_ALPHA + RenderManager.ALPHA_STEP * i;
-            this.renderLayer(ctx, i);
-            ctx.clip();
-            renderVisibleObjects(ctx);
-            ctx.restore();
+
+            maskCtx.globalCompositeOperation = 'source-over';
+            maskCtx.fillRect(0, 0, WIDTH, HEIGHT);
+            maskCtx.globalCompositeOperation = 'xor';
+
+            this.renderLayer(maskCtx, i);
+            maskCtx.fill();
+
+            ctx.globalAlpha = 1 - RenderManager.ALPHA_STEP * i;
+            ctx.drawImage(maskCanvas, 0, 0);
         }
     }
 
