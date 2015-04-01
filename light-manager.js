@@ -40,10 +40,9 @@ var RenderManager = function () {
         renderVisibleObjects(ctx);
 
         for (var i = 0; i < RenderManager.LIGHT_LAYERS; i++) {
-
             maskCtx.globalCompositeOperation = 'source-over';
             maskCtx.fillRect(0, 0, WIDTH, HEIGHT);
-            maskCtx.globalCompositeOperation = 'xor';
+            maskCtx.globalCompositeOperation = 'destination-out';
 
             this.renderLayer(maskCtx, i);
             maskCtx.fill();
