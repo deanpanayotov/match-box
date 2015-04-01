@@ -6,6 +6,12 @@ var RenderManager = function () {
     this.lightSources = [];
     this.idCounter = -1;
 
+    var currentBaseAlpha = 0;
+    var isFadingOut = false;
+    var updateTime = 0;
+    setTimeout(function(){ isFadingOut = true; }, RenderManager.INITIAL_LIGHTS);
+    setInterval((function(self) { return function() { self.update(); } })(this), RenderManager.INTERVAL);
+
     var maskCanvas = document.createElement('canvas');
     maskCanvas.width = WIDTH;
     maskCanvas.height = HEIGHT;
@@ -13,15 +19,21 @@ var RenderManager = function () {
     maskCtx.fillStyle = "#000000";
 
     this.update = function () {
+        if(isFadingOut){
+            currentBaseAlpha += RenderManager.INITIAL_LIGHTS_FADE_STEP;
+            console.log("### base "+currentBaseAlpha + " " + RenderManager.INITIAL_LIGHTS_FADE_STEP);
+            if(currentBaseAlpha >= 1){
+                console.log("1111111");
+                currentBaseAlpha = 1;
+                isFadingOut = false;
+            }
+        }
         for (var i = 0; i < this.lightSources.length; i++) {
             if (this.lightSources[i]) {
                 this.lightSources[i].update();
             }
         }
     }
-
-    setInterval((function(self) { return function() { self.update(); } })(this), RenderManager.INTERVAL);
-
 
     this.addLightSource = function (ls) {
         this.idCounter++;
@@ -47,7 +59,7 @@ var RenderManager = function () {
             this.renderLayer(maskCtx, i);
             maskCtx.fill();
 
-            ctx.globalAlpha = 1 - RenderManager.ALPHA_STEP * i;
+            ctx.globalAlpha = currentBaseAlpha - RenderManager.ALPHA_STEP * i;
             ctx.drawImage(maskCanvas, 0, 0);
         }
     }
@@ -61,8 +73,12 @@ var RenderManager = function () {
         }
         ctx.closePath();
     }
+
 }
 
+RenderManager.INITIAL_LIGHTS = 1500;
+RenderManager.INITIAL_LIGHTS_FADE_STEPS = 12;
+RenderManager.INITIAL_LIGHTS_FADE_STEP = 1 / RenderManager.INITIAL_LIGHTS_FADE_STEPS;
 RenderManager.INTERVAL = 120;
 RenderManager.LIGHT_LAYERS = 3;
 RenderManager.MIN_ALPHA = 0.4;
