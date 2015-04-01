@@ -46,11 +46,7 @@ var RenderManager = function () {
         this.lightSources[id] = undefined;
     }
 
-    this.render = function(ctx, renderVisibleObjects){
-        ctx.globalAlpha = 1;
-        ctx.clearRect(0, 0, WIDTH, HEIGHT);
-        renderVisibleObjects(ctx);
-
+    this.render = function(ctx){
         for (var i = 0; i < RenderManager.LIGHT_LAYERS; i++) {
             maskCtx.globalCompositeOperation = 'source-over';
             maskCtx.fillRect(0, 0, WIDTH, HEIGHT);

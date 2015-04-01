@@ -22,7 +22,7 @@ var Game = function(){
     function step() {
             setDelta();
             update();
-            lightManager.render(mainCanvasContext, render);
+            render();
             if (!paused)
                 animate(step);
     }
@@ -32,9 +32,12 @@ var Game = function(){
         handleControls();
     }
 
-    function render(ctx){
-        renderMaze(ctx);
-        player.render(ctx);
+    function render(){
+        mainCanvasContext.globalAlpha = 1;
+        mainCanvasContext.clearRect(0, 0, WIDTH, HEIGHT);
+        renderMaze(mainCanvasContext);
+        player.render(mainCanvasContext);
+        lightManager.render(mainCanvasContext);
     }
 
     function renderMaze(ctx){
