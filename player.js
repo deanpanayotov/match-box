@@ -110,7 +110,7 @@ var Player = function(positioning){
 };
 
 Player.HOP = STEP * 2; // total number of pixels
-Player.HOP_INTERVAL = 300; //milliseconds
+Player.HOP_INTERVAL = 200; //milliseconds
 Player.HOP_SPEED = Player.HOP * (1000 / Player.HOP_INTERVAL);
 
 Player.RADIUS = Math.floor(STEP / 2);
