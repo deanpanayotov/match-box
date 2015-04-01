@@ -27,7 +27,8 @@ var Game = function(){
     }
 
     function update() {
-        player.update(delta, maze, lightManager);
+        player.update(delta);
+        handleControls();
     }
 
     function render(ctx){
@@ -52,8 +53,31 @@ var Game = function(){
         return canvas;
     }
 
-    function updatePlayerTorch(){
+    function handleControls(){
+        f: for (var key in keysDown) {
+            var value = Number(key);
+            switch (value) {
+                case KEY_LEFT:
+                    if(player.moveTo(player.x - 2, player.y, delta, maze)) break f;
+                    break;
+                case KEY_UP:
+                    if(player.moveTo(player.x, player.y - 2, delta, maze)) break f;
+                    break;
+                case KEY_RIGHT:
+                    if(player.moveTo(player.x + 2, player.y, delta, maze)) break f;
+                    break;
+                case KEY_DOWN:
+                    if(player.moveTo(player.x, player.y + 2, delta, maze)) break f;
+                    break;
+            }
+        }
 
+        for (var key in keysDown) {
+            var value = Number(key);
+            if(value == KEY_MATCH){
+                player.lightMatch(lightManager);
+            }
+        }
     }
 
     this.start = function() {

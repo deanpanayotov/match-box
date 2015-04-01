@@ -21,52 +21,28 @@ var Player = function(positioning){
 
     var ls = undefined;
 
-    this.update = function(delta, maze, lightManager){
+    this.update = function(delta){
         if(this.isMoving) {
             this.move(delta);
-        }else{
-            f: for (var key in keysDown) {
-                var value = Number(key);
-                switch (value) {
-                    case Player.KEY_LEFT:
-                        if(this.moveTo(this.x - 2, this.y, delta, maze)) break f;
-                        break;
-                    case Player.KEY_UP:
-                        if(this.moveTo(this.x, this.y - 2, delta, maze)) break f;
-                        break;
-                    case Player.KEY_RIGHT:
-                        if(this.moveTo(this.x + 2, this.y, delta, maze)) break f;
-                        break;
-                    case Player.KEY_DOWN:
-                        if(this.moveTo(this.x, this.y + 2, delta, maze)) break f;
-                        break;
-                }
-            }
-        }
-        for (var key in keysDown) {
-            var value = Number(key);
-            if(value == Player.KEY_MATCH && !ls && this.matchCount > 0){
-                this.matchCount --;
-                ls = new LightSource(this.dx, this.dy, [200, 140, 90], 6);
-                lightManager.addLightSource(ls);
-                setTimeout(function() {setLightOff(lightManager)}, 5000);
-            }
         }
     };
 
     this.moveTo = function(nx, ny, delta, maze) {
-        var midx = (this.x + nx) / 2;
-        var midy = (this.y + ny) / 2;
-        if (maze.cells[midx][midy] === undefined) {
-            this.xspeed = midx - this.x;
-            this.yspeed = midy - this.y;
-            this.nx = nx;
-            this.ny = ny;
-            this.tx = nx * STEP + STEP / 2;
-            this.ty = ny * STEP + STEP / 2;
-            this.isMoving = true;
-            this.move(delta);
-            return true;
+        console.log("move called!!!");
+        if(!this.isMoving){
+            var midx = (this.x + nx) / 2;
+            var midy = (this.y + ny) / 2;
+            if (maze.cells[midx][midy] === undefined) {
+                this.xspeed = midx - this.x;
+                this.yspeed = midy - this.y;
+                this.nx = nx;
+                this.ny = ny;
+                this.tx = nx * STEP + STEP / 2;
+                this.ty = ny * STEP + STEP / 2;
+                this.isMoving = true;
+                this.move(delta);
+                return true;
+            }
         }
         return false;
     };
@@ -121,8 +97,14 @@ var Player = function(positioning){
         }
     }
 
-    var lightMatch = function(){
-
+    this.lightMatch = function(lightManager){
+        console.log("light match called!!!");
+        if(!ls && this.matchCount > 0){
+            this.matchCount --;
+            ls = new LightSource(this.dx, this.dy, [200, 140, 90], 6);
+            lightManager.addLightSource(ls);
+            setTimeout(function() {setLightOff(lightManager)}, 5000);
+        }
     }
 
 };
@@ -133,9 +115,3 @@ Player.HOP_SPEED = Player.HOP * (1000 / Player.HOP_INTERVAL);
 
 Player.RADIUS = Math.floor(STEP / 2);
 Player.PI2 =Math.PI * 2;
-
-Player.KEY_LEFT = 37;
-Player.KEY_UP = 38;
-Player.KEY_RIGHT = 39;
-Player.KEY_DOWN = 40;
-Player.KEY_MATCH = 32;
